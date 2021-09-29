@@ -1,0 +1,29 @@
+.createPosts {
+    background-color: white;
+    border-radius: 10px;
+    margin: 20px 20px 0px 0px;
+    padding: 10px
+}
+.avatar img{
+    height: 100px;
+    width: 100px;
+    border-radius: 50px;
+    margin: 5px;
+}
+textarea {
+    height: 100px;
+    width: 1250px;
+    margin-left: 10px;
+    border: none;
+    font-size: x-large;
+}
+button {
+    background-color: #c6dfeb;
+    height: 40px;
+    width: 100px;
+    border-radius: 5px;
+    border: none;
+    font-size: large;
+    color: steelblue;
+    font-weight: bold;
+}
