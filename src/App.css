@@ -4,10 +4,14 @@
     grid-template-columns: 150px 1fr;
     grid-column-gap: 40px;
     grid-row-gap: 40px;
-    grid-template-areas: "h h" "n c";
+    grid-template-areas: "h h"
+                         "n c";
 }
 
-
+.app-wrapper-content {
+    grid-area: c;
+    margin: 0px 50px 0px 20px;
+}
 
 
 

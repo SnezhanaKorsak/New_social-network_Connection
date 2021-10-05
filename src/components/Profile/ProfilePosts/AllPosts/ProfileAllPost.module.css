@@ -1,7 +1,7 @@
 .allPosts {
     background-color: white;
     border-radius: 10px;
-    margin: 20px 20px 20px 0px;
+    margin-top: 20px;
     padding: 0px 10px
 }
 .avatar img{
@@ -12,5 +12,18 @@
 }
 
 .item {
-    padding: 20px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.postBlock {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+.postItem {
+    margin-top: auto;
+    margin-bottom: auto;
+    padding-left: 20px;
 }

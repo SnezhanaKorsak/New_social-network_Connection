@@ -1,0 +1,10 @@
+.userItem {
+    border-top: 1px solid lightgrey;
+    padding: 10px;
+
+}
+
+.userItem a {
+    text-decoration: none;
+    color: #3f414d;
+}

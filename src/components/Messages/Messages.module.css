@@ -1,0 +1,19 @@
+
+.messages {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    color: #3f414d;
+}
+
+.users {
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px 0 0 10px;
+}
+
+.dialogs {
+    border-radius: 0 10px 10px 0;
+    background-color: #eaf4ff;
+    padding-left: 20px;
+}
+
