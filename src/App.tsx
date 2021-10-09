@@ -7,18 +7,25 @@ import {BrowserRouter, Route} from "react-router-dom";
 import {Profile} from "./components/Profile/Profile";
 import {Music} from "./components/Music/Music";
 import {Video} from "./components/Video/Video";
+import {DialogsType, PostsType, UsersType} from "./index";
 
-function App() {
+type AppType = {
+    posts: PostsType[]
+    users: UsersType[]
+    dialogs: DialogsType[]
+}
+
+function App(props: AppType) {
     return (
         <BrowserRouter>
             <div className="app-wrapper">
                 <Header/>
                 <Navbar/>
                 <div className="app-wrapper-content">
-                    <Route path='/profile' component={Profile}/>
-                    <Route path='/messages' component={Messages}/>
-                    <Route path='/music' component={Music}/>
-                    <Route path='/video' component={Video}/>
+                    <Route path='/profile' render={() => <Profile posts={props.posts}/>}/>
+                    <Route path='/messages' render={() => <Messages users={props.users} dialogs={props.dialogs}/>}/>
+                    <Route path='/music' render={() => <Music/>}/>
+                    <Route path='/video' render={() => <Video/>}/>
                 </div>
             </div>
         </BrowserRouter>

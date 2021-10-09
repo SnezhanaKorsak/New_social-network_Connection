@@ -1,13 +1,18 @@
 import React from 'react';
 import s from "./ProfileAllPost.module.css";
 import {Post} from "./Post";
+import {PostsType} from "../../../../index";
 
-export function ProfileAllPost() {
+
+type ProfileAllPostType = {
+    posts: PostsType[]
+}
+
+export function ProfileAllPost(props:ProfileAllPostType ) {
+
+    let postElement = props.posts.map(p => <Post message={p.message} likecount={p.likecount}/>)
+
     return <div className={s.allPosts}>
-        <Post message={"Work hard to get what you like, otherwise you'll be forced to just like what you get."}
-              likecount={15}/>
-        <Post message={"Success is the ability to go from failure to failure without losing your enthusiasm."}
-              likecount={20}/>
-
+        {postElement}
     </div>
 }

@@ -4,13 +4,19 @@ import {ProfileCover} from "./ProfileCover/ProfileCover";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {ProfileNewPost} from "./ProfilePosts/NewPost/ProfileNewPost";
 import {ProfileAllPost} from "./ProfilePosts/AllPosts/ProfileAllPost";
+import {PostsType} from "../../index";
 
-export function Profile() {
+type ProfileType = {
+    posts: PostsType[]
+}
+
+export function Profile(props: ProfileType) {
+
     return <div className={s.content}>
         <ProfileCover/>
         <ProfileInfo/>
         <ProfileNewPost/>
-        <ProfileAllPost/>
+        <ProfileAllPost posts={props.posts} />
     </div>
 
 }
