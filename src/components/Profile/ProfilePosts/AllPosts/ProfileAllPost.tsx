@@ -1,14 +1,13 @@
 import React from 'react';
 import s from "./ProfileAllPost.module.css";
 import {Post} from "./Post";
-import {PostsType} from "../../../../index";
-
+import {PostType} from "../../../../redux/state";
 
 type ProfileAllPostType = {
-    posts: PostsType[]
+    posts: PostType[]
 }
 
-export function ProfileAllPost(props:ProfileAllPostType ) {
+export function ProfileAllPost(props: ProfileAllPostType) {
 
     let postElement = props.posts.map(p => <Post message={p.message} likecount={p.likecount}/>)
 

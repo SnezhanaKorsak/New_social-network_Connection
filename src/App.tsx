@@ -7,12 +7,13 @@ import {BrowserRouter, Route} from "react-router-dom";
 import {Profile} from "./components/Profile/Profile";
 import {Music} from "./components/Music/Music";
 import {Video} from "./components/Video/Video";
-import {DialogsType, PostsType, UsersType} from "./index";
+import {RootStateType} from "./redux/state";
+
 
 type AppType = {
-    posts: PostsType[]
-    users: UsersType[]
-    dialogs: DialogsType[]
+    state: RootStateType
+    addPost: (postText: string) => void
+    updateNewPostText: (newText: string) => void
 }
 
 function App(props: AppType) {
@@ -22,8 +23,11 @@ function App(props: AppType) {
                 <Header/>
                 <Navbar/>
                 <div className="app-wrapper-content">
-                    <Route path='/profile' render={() => <Profile posts={props.posts}/>}/>
-                    <Route path='/messages' render={() => <Messages users={props.users} dialogs={props.dialogs}/>}/>
+                    <Route path='/profile' render={() => <Profile profilePage={props.state.profilePage}
+                                                                  addPost={props.addPost}
+                                                                  updateNewPostText={props.updateNewPostText}
+                    />}/>
+                    <Route path='/messages' render={() => <Messages messagePage={props.state.messagePage}/>}/>
                     <Route path='/music' render={() => <Music/>}/>
                     <Route path='/video' render={() => <Video/>}/>
                 </div>

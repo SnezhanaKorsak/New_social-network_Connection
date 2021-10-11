@@ -5,13 +5,19 @@
     padding: 10px;
 }
 
-.item.active {
+.item a.active {
+    display: block;
     background-color: #dcf0ff;
     border-radius: 5px;
+    padding: 0 20px 0 10px;
 }
 
 .item a {
     text-decoration: none;
     color: steelblue;
     padding: 10px;
+}
+
+a:hover {
+ color: deepskyblue;
 }
