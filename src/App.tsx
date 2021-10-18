@@ -7,27 +7,27 @@ import {BrowserRouter, Route} from "react-router-dom";
 import {Profile} from "./components/Profile/Profile";
 import {Music} from "./components/Music/Music";
 import {Video} from "./components/Video/Video";
-import {RootStateType} from "./redux/state";
+import {ActionSType, StoreType} from "./redux/state";
 
 
 type AppType = {
-    state: RootStateType
-    addPost: (postText: string) => void
-    updateNewPostText: (newText: string) => void
+    store: StoreType
+    dispatch: (action: ActionSType) => void
 }
 
 function App(props: AppType) {
+    const state = props.store.getState()
+
     return (
         <BrowserRouter>
             <div className="app-wrapper">
                 <Header/>
                 <Navbar/>
                 <div className="app-wrapper-content">
-                    <Route path='/profile' render={() => <Profile profilePage={props.state.profilePage}
-                                                                  addPost={props.addPost}
-                                                                  updateNewPostText={props.updateNewPostText}
+                    <Route path='/profile' render={() => <Profile profilePage={state.profilePage}
+                                                                  dispatch={props.dispatch}
                     />}/>
-                    <Route path='/messages' render={() => <Messages messagePage={props.state.messagePage}/>}/>
+                    <Route path='/messages' render={() => <Messages messagePage={state.messagePage}/>}/>
                     <Route path='/music' render={() => <Music/>}/>
                     <Route path='/video' render={() => <Video/>}/>
                 </div>

@@ -9,7 +9,7 @@ type ProfileAllPostType = {
 
 export function ProfileAllPost(props: ProfileAllPostType) {
 
-    let postElement = props.posts.map(p => <Post message={p.message} likecount={p.likecount}/>)
+    let postElement = props.posts.map(p => <Post message={p.message} likecount={p.likeCount}/>)
 
     return <div className={s.allPosts}>
         {postElement}

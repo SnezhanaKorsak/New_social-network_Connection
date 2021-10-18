@@ -4,13 +4,12 @@ import {ProfileCover} from "./ProfileCover/ProfileCover";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {ProfileNewPost} from "./ProfilePosts/NewPost/ProfileNewPost";
 import {ProfileAllPost} from "./ProfilePosts/AllPosts/ProfileAllPost";
-import {ProfilePageType} from "../../redux/state";
+import {ActionSType, ProfilePageType} from "../../redux/state";
 
 
 type ProfileType = {
     profilePage: ProfilePageType
-    addPost: (postText: string) => void
-    updateNewPostText: (newText: string) => void
+    dispatch: (action: ActionSType) => void
 }
 
 export function Profile(props: ProfileType) {
@@ -19,8 +18,7 @@ export function Profile(props: ProfileType) {
         <ProfileCover/>
         <ProfileInfo/>
         <ProfileNewPost message={props.profilePage.newPostText}
-                        addPost={props.addPost}
-                        updateNewPostText={props.updateNewPostText}
+                        dispatch={props.dispatch}
         />
         <ProfileAllPost posts={props.profilePage.posts} />
     </div>

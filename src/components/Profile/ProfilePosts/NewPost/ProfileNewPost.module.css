@@ -4,20 +4,28 @@
     margin-top: 20px;
     padding: 10px
 }
-.avatar img{
+
+.avatar img {
     height: 100px;
     width: 100px;
     border-radius: 50px;
     margin: 5px;
 }
-textarea {
+
+.createPosts textarea {
     height: 100px;
-    width: 1250px;
+    width: 950px;
     margin-left: 10px;
     border: none;
-    font-size: x-large;
+    font-size: 1.2em;
+    resize: none;
 }
-button {
+
+.createPosts textarea:focus {
+    outline: none;
+}
+
+.createPosts button {
     background-color: #c6dfeb;
     height: 40px;
     width: 100px;
@@ -25,5 +33,5 @@ button {
     border: none;
     font-size: large;
     color: steelblue;
-    font-weight: bold;
+    text-transform: uppercase;
 }

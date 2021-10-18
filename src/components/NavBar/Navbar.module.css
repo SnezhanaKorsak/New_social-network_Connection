@@ -18,6 +18,8 @@
     padding: 10px;
 }
 
-a:hover {
- color: deepskyblue;
+.item a:hover {
+    display: block;
+    color: #c79cfd;
+    font-weight: bold;
 }
