@@ -1,22 +1,25 @@
 import React, {ChangeEvent} from 'react';
 import s from "./ProfileNewPost.module.css";
-import {ActionSType} from "../../../../redux/state";
+import {ActionSType, addPostAC, onPostChangeAC} from "../../../../redux/state";
 
 type ProfileNewPostType = {
     message: string
     dispatch: (action: ActionSType) => void
 }
 
+
 export function ProfileNewPost(props: ProfileNewPostType) {
 
 
     const addPost = () => {
-        props.dispatch({type: "ADD-POST", postText: props.message})
-        props.dispatch({type: "UPDATE-NEW-POST", newText: ''})
+        /*props.dispatch({type: "ADD-POST", postText: props.message})
+        props.dispatch({type: "UPDATE-NEW-POST", newText: ''})*/
+        props.dispatch(addPostAC(props.message))
+        props.dispatch(onPostChangeAC(''))
     }
 
     const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch({type: "UPDATE-NEW-POST", newText: e.currentTarget.value})
+        props.dispatch(onPostChangeAC(e.currentTarget.value))
     }
 
     return <div className={s.createPosts}>
