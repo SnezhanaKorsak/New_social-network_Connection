@@ -4,12 +4,12 @@ import {ProfileCover} from "./ProfileCover/ProfileCover";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {ProfileNewPost} from "./ProfilePosts/NewPost/ProfileNewPost";
 import {ProfileAllPost} from "./ProfilePosts/AllPosts/ProfileAllPost";
-import {ActionSType, ProfilePageType} from "../../redux/state";
+import {ActionsType, ProfilePageType} from "../../redux/state";
 
 
 type ProfileType = {
     profilePage: ProfilePageType
-    dispatch: (action: ActionSType) => void
+    dispatch: (action: ActionsType) => void
 }
 
 export function Profile(props: ProfileType) {

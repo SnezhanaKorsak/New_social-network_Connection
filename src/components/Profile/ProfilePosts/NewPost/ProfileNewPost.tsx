@@ -1,10 +1,11 @@
 import React, {ChangeEvent} from 'react';
 import s from "./ProfileNewPost.module.css";
-import {ActionSType, addPostAC, onPostChangeAC} from "../../../../redux/state";
+import {ActionsType} from "../../../../redux/state";
+import {addPostAC, onPostChangeAC} from "../../../../redux/profileReducer";
 
 type ProfileNewPostType = {
     message: string
-    dispatch: (action: ActionSType) => void
+    dispatch: (action: ActionsType) => void
 }
 
 
