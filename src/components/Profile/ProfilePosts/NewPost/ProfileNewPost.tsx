@@ -1,11 +1,10 @@
 import React, {ChangeEvent} from 'react';
 import s from "./ProfileNewPost.module.css";
-import {ActionsType} from "../../../../redux/state";
-import {addPostAC, onPostChangeAC} from "../../../../redux/profileReducer";
 
 type ProfileNewPostType = {
     message: string
-    dispatch: (action: ActionsType) => void
+    addPost: (postText: string) => void
+    onPostChange: (newText: string) => void
 }
 
 
@@ -13,14 +12,12 @@ export function ProfileNewPost(props: ProfileNewPostType) {
 
 
     const addPost = () => {
-        /*props.dispatch({type: "ADD-POST", postText: props.message})
-        props.dispatch({type: "UPDATE-NEW-POST", newText: ''})*/
-        props.dispatch(addPostAC(props.message))
-        props.dispatch(onPostChangeAC(''))
+        props.addPost(props.message)
+        props.onPostChange('')
     }
 
     const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(onPostChangeAC(e.currentTarget.value))
+        props.onPostChange(e.currentTarget.value)
     }
 
     return <div className={s.createPosts}>

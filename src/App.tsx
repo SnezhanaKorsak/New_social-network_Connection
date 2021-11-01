@@ -7,12 +7,12 @@ import {HashRouter, Redirect, Route, Switch} from "react-router-dom";
 import {Profile} from "./components/Profile/Profile";
 import {Music} from "./components/Music/Music";
 import {Video} from "./components/Video/Video";
-import {ActionsType, StoreType} from "./redux/state";
+import {ActionsType, StoreType} from "./redux/store";
+import {MessagesContainer} from "./components/Messages/MessagesContainer";
 
 
 type AppType = {
-    store: StoreType
-    dispatch: (action: ActionsType) => void
+  /*  store: StoreType*/
 }
 
 export const PATH = {
@@ -23,7 +23,7 @@ export const PATH = {
 }
 
 function App(props: AppType) {
-    const state = props.store.getState()
+   /* const state = props.store.getState()*/
 
     return (
         <HashRouter>
@@ -34,13 +34,8 @@ function App(props: AppType) {
                     <Switch>
                         <Route path={'/'} exact render={() => <Redirect to={PATH.PROFILE}/>}/>
 
-                        <Route path={PATH.PROFILE} render={() => <Profile profilePage={state.profilePage}
-                                                                          dispatch={props.dispatch}
-                        />}/>
-                        <Route path={PATH.MESSAGES} render={() => <Messages messagePage={state.messagePage}
-                                                                            message={state.messagePage.newMessageText}
-                                                                            dispatch={props.dispatch}
-                        />}/>
+                        <Route path={PATH.PROFILE} render={() => <Profile/>}/>
+                        <Route path={PATH.MESSAGES} render={() => <MessagesContainer/>}/>
                         <Route path={PATH.MUSIC} render={() => <Music/>}/>
                         <Route path={PATH.VIDEO} render={() => <Video/>}/>
                     </Switch>

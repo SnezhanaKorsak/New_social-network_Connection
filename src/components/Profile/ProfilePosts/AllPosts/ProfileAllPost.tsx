@@ -1,7 +1,7 @@
 import React from 'react';
 import s from "./ProfileAllPost.module.css";
 import {Post} from "./Post";
-import {PostType} from "../../../../redux/state";
+import {PostType} from "../../../../redux/store";
 
 type ProfileAllPostType = {
     posts: PostType[]
