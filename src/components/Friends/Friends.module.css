@@ -1,0 +1,86 @@
+.container {
+    float:left;
+    padding: 10px;
+}
+.coverForBlock {
+    position: relative
+}
+.coverForBlock  img{
+    height: 250px;
+    width: 1100px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.label {
+    position: absolute;
+    top: 80px;
+    left: 450px;
+    width: 180px;
+    height: 60px;
+    background: #fffcf7;
+    font-size: 1.7em;
+    color: #3f414d;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 60px;
+}
+
+.coverForItem {
+    width: 530px;
+    border-radius: 10px;
+}
+.blockItem {
+    position: relative;
+    width: 530px;
+    height: 320px;
+    border-radius: 10px;
+    background: white;
+    margin-bottom: 50px;
+}
+
+.avatar {
+    position: relative;
+    top: -60px;
+    left: 15px;
+
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 5px solid white;
+}
+
+.info{
+    position: absolute;
+    width: 280px;
+    bottom: 20px;
+    right:  20px;
+
+
+}
+
+.info .name {
+    color: #0cb8ef;
+    font-size: 1.2em;
+}
+
+.info .status {
+    hyphens: auto;
+    hyphenate-limit-chars: 6 3 2;
+    margin-top: 12px;
+}
+.blockItem button {
+    position: absolute;
+    bottom: 20px;
+    left: 33px;
+
+    background-color: #50b5ff;
+    height: 35px;
+    width: 100px;
+    border-radius: 5px;
+    border: none;
+    font-size: 0.8em;
+    color: whitesmoke;
+    text-transform: uppercase;
+    cursor: pointer;
+}

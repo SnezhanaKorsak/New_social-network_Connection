@@ -3,47 +3,47 @@ import {addPostAC, onPostChangeAC, profileReducer} from "./profileReducer";
 import {addMessageAC, messageReducer, onMessageChangeAC} from "./messageReducer";
 import {sideBarReducer} from "./sideBarReducer";
 
-export type PostType = {
+type PostType = {
     id: number
     message: string
     likeCount: number
 }
-export type UsersType = {
+type UsersType = {
     id: number
     name: string
 }
-export type DialogsType = {
+type DialogsType = {
     id: number
     message: string
 }
 
-export type ProfilePageType = {
+type ProfilePageType = {
     posts: PostType[]
     newPostText: string
 }
-export type MessagePageType = {
+type MessagePageType = {
     users: UsersType[]
     dialogs: DialogsType[]
     newMessageText: string
 }
-export type SideBarType = {}
+type SideBarType = {}
 
-export type RootStateType = {
+type RootStateType = {
     profilePage: ProfilePageType
     messagePage: MessagePageType
     sideBar: SideBarType
 }
 
-export type ActionsType =
+type ActionsType =
     ReturnType<typeof addPostAC> | ReturnType<typeof onPostChangeAC> |
     ReturnType<typeof addMessageAC> | ReturnType<typeof onMessageChangeAC>
 
-export type StoreType = {
+type StoreType = {
     _state: RootStateType
     _callSubscriber: () => void
     getState: () => RootStateType
     subscribe: (observer: () => void) => void
-    dispatch: (action: ActionsType) => void
+   /* dispatch: (action: ActionsType) => void*/
 }
 
 
@@ -89,13 +89,13 @@ const store: StoreType = {
     },
     subscribe(observer) {
         this._callSubscriber = observer
-    },
+    }/*,
     dispatch(action) {
         this._state.profilePage = profileReducer(this._state.profilePage, action)
         this._state.messagePage = messageReducer(this._state.messagePage, action)
         this._state.sideBar = sideBarReducer(this._state.sideBar, action)
         this._callSubscriber()
-    },
+    },*/
 }
 
 

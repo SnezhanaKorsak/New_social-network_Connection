@@ -26,12 +26,17 @@
 }
 
 .createPosts button {
-    background-color: #c6dfeb;
-    height: 40px;
+    background-color: #50b5ff;
+    height: 35px;
     width: 100px;
     border-radius: 5px;
     border: none;
     font-size: large;
-    color: steelblue;
+    color: whitesmoke;
     text-transform: uppercase;
+    cursor: pointer;
+}
+
+.createPosts button:hover {
+    background-color: #449ad9;
 }

@@ -1,36 +1,34 @@
 import React, {ChangeEvent} from 'react';
-import {addMessageAC, onMessageChangeAC} from '../../redux/messageReducer';
+import {addMessageAC, MessagePageType, onMessageChangeAC} from '../../redux/messageReducer';
 import {Messages} from "./Messages";
-import {StoreContext} from "../../StoreContext";
+import {connect} from "react-redux";
+import {AppStateType} from "../../redux/redux-store";
+import {Dispatch} from "redux";
 
 
-type MessagesContainerPropsType = {
-  /*  store: StoreType*/
+type mapStatePropsType = {
+    messagePage: MessagePageType
+}
+type mapDispatchPropsType = {
+    addMessage: (messageText: string) => void
+    updateMessageText: (newText: string) => void
 }
 
-export function MessagesContainer(props: MessagesContainerPropsType) {
-
-
-    return (
-        <StoreContext.Consumer>
-            {(store) => {
-
-                const state = store.getState()
-
-                const addMessage = (messageText: string) => {
-                    store.dispatch(addMessageAC(messageText))
-                    store.dispatch(onMessageChangeAC(''))
-                }
-                const updateMessageText = (newText: string) => {
-                    store.dispatch(onMessageChangeAC(newText))
-                }
-
-                return <Messages messagePage={state.messagePage}
-                                 addMessage={addMessage}
-                                 updateMessageText={updateMessageText}
-                />
-            }}
-        </StoreContext.Consumer>
-
-    )
+const mapStateToProps = (state: AppStateType): mapStatePropsType => {
+    return {
+        messagePage: state.messagePage
+    }
 }
+
+const mapDispatchToProps = (dispatch: Dispatch): mapDispatchPropsType => {
+    return {
+        addMessage: (messageText: string) => {
+            dispatch(addMessageAC(messageText))
+        },
+        updateMessageText: (newText: string) => {
+            dispatch(onMessageChangeAC(newText))
+        }
+    }
+}
+
+export const MessagesContainer = connect(mapStateToProps, mapDispatchToProps)(Messages)

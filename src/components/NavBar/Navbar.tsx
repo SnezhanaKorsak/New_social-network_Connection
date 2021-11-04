@@ -14,6 +14,9 @@ export function Navbar() {
          <NavLink to={PATH.MESSAGES} activeClassName={s.active}>Messages</NavLink>
      </div>
      <div className={s.item}>
+         <NavLink to={PATH.FRIENDS} activeClassName={s.active}>Friends</NavLink>
+     </div>
+     <div className={s.item}>
          <NavLink to={PATH.MUSIC} activeClassName={s.active}>Music</NavLink>
      </div>
      <div className={s.item}>
