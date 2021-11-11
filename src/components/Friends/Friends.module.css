@@ -53,10 +53,8 @@
 .info{
     position: absolute;
     width: 280px;
-    bottom: 20px;
+    bottom: 40px;
     right:  20px;
-
-
 }
 
 .info .name {

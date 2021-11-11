@@ -1,36 +1,36 @@
-export  type LocationType = {
-    country: string
-    city: string
+type PhotosType = {
+    small: string
+    large: string
 }
 export type FriendType = {
+    name: string
     id: number
-    cover: string
-    photoUrl: string
-    follow: boolean
-    nickname: string
-    profession: string
+    photos: PhotosType
     status: string
-    location: LocationType
+    followed: boolean
+
 }
 export type initialStateType = {
     friends: Array<FriendType>
 }
 const initialState: initialStateType = {
-    friends: [
-
-    ]
+    friends: []
 }
 
 
 export const friendsReducer = (state = initialState, action: ActionType): initialStateType => {
     switch (action.type) {
         case "FOLLOW":
-            return {...state, friends: state.friends.map(f => f.id === action.friendId
-                    ? {...f, follow: true} : f)};
+            return {
+                ...state, friends: state.friends.map(f => f.id === action.friendId
+                    ? {...f, followed: true} : f)
+            };
 
         case "UNFOLLOW":
-            return {...state, friends: state.friends.map(f => f.id === action.friendId
-                    ? {...f, follow: false} : f)};
+            return {
+                ...state, friends: state.friends.map(f => f.id === action.friendId
+                    ? {...f, followed: false} : f)
+            };
 
         case "SET-FRIENDS":
             return {...state, friends: [...action.friends]}

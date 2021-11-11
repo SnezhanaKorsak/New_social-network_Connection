@@ -7,7 +7,7 @@ import {Profile} from "./components/Profile/Profile";
 import {Music} from "./components/Music/Music";
 import {Video} from "./components/Video/Video";
 import {MessagesContainer} from "./components/Messages/MessagesContainer";
-import {FriendsContainer} from "./components/Friends/FriendsContainer";
+import FriendsContainer from "./components/Friends/FriendsContainer";
 
 
 type AppType = {
