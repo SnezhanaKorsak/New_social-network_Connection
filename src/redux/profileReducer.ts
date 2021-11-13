@@ -3,13 +3,38 @@ export type PostType = {
     message: string
     likeCount: number
 }
+type ContactsType = {
+    facebook: string
+    website: string | null
+    vk: string
+    twitter: string
+    instagram: string
+    youtube: null,
+    github: string
+    mainLink: null
+}
+type PhotosType = {
+    small: string
+    large: string
+}
+export type ProfileType = {
+    aboutMe: string
+    "contacts": ContactsType
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    userId: number
+    photos: PhotosType
+}
 export type ProfilePageType = {
     posts: PostType[]
-    newPostText: string
+    newPostText: string,
+    profile: ProfileType | null
 }
 
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST = "UPDATE-NEW-POST";
+const SET_USER_PROFILE = "SET-USER-PROFILE";
 
 const initialState: ProfilePageType = {
     posts: [
@@ -24,7 +49,8 @@ const initialState: ProfilePageType = {
             likeCount: 20
         }
     ],
-    newPostText: ''
+    newPostText: '',
+    profile: null
 }
 
 
@@ -42,24 +68,35 @@ export const profileReducer = (state = initialState, action: ActionType): Profil
         case UPDATE_NEW_POST:
             return {...state, newPostText: action.newText};
 
+        case "SET-USER-PROFILE":
+            return {...state, profile: action.profile}
+
         default:
             return state
     }
 }
 
-type ActionType = ReturnType<typeof addPostAC> | ReturnType<typeof onPostChangeAC>
+type ActionType = ReturnType<typeof addPostAC>
+    | ReturnType<typeof onPostChangeAC>
+    | ReturnType<typeof setUserProfile>
 
 export const addPostAC = (postText: string) => {
 
     return {
         type: ADD_POST,
-        postText: postText
+        postText
     } as const
 }
 
 export const onPostChangeAC = (newText: string) => {
     return {
         type: UPDATE_NEW_POST,
-        newText: newText
+        newText
+    } as const
+}
+export const setUserProfile = (profile: ProfileType | null) => {
+    return {
+        type: SET_USER_PROFILE,
+        profile
     } as const
 }

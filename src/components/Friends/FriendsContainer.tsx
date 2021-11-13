@@ -2,13 +2,13 @@ import React from "react";
 import {connect} from "react-redux";
 import {Friends} from "./Friends";
 import {AppStateType} from "../../redux/redux-store";
-import {followAC, FriendType, initialStateType, setFriendsAC, unfollowAC} from "../../redux/friendsReducer";
-import {Dispatch} from "redux";
-import axios from "axios";
+import {follow, FriendType, initialStateType, setFriends, unfollow} from "../../redux/friendsReducer";
+
 
 type PropsType = mapStatePropsType & mapDispatchPropsType
 type mapStatePropsType = {
     friendsPage: initialStateType
+    isFetching: boolean
 }
 type mapDispatchPropsType = {
     follow: (userId: number) => void
@@ -18,37 +18,21 @@ type mapDispatchPropsType = {
 
 const mapStateToProps = (state: AppStateType): mapStatePropsType => {
     return {
-        friendsPage: state.friendsPage
-    }
-}
-const mapDispatchToProps = (dispatch: Dispatch): mapDispatchPropsType => {
-    return {
-        follow: (userId: number) => {
-            dispatch(followAC(userId))
-        },
-        unfollow: (userId: number) => {
-            dispatch(unfollowAC(userId))
-        },
-        setFriends: (friends: Array<FriendType>) => {
-            dispatch(setFriendsAC(friends))
-        }
+        friendsPage: state.friendsPage,
+        isFetching: state.friendsPage.isFetching
     }
 }
 
 class FriendsContainer extends React.Component<PropsType> {
-    componentDidMount(): void {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=1&count=4`)
-            .then(response => {
-                this.props.setFriends(response.data.items)
-            })
-    }
 
     render(): React.ReactNode {
-        return <Friends friendsPage={this.props.friendsPage}
-                        follow={this.props.follow}
-                        unfollow={this.props.unfollow}
-                        setFriends={this.props.setFriends} />
+        return (
+            <Friends friendsPage={this.props.friendsPage}
+                     follow={this.props.follow}
+                     unfollow={this.props.unfollow}
+                     isFetching={this.props.isFetching}/>
+        )
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(FriendsContainer)
+export default connect(mapStateToProps, {follow, unfollow, setFriends})(FriendsContainer)

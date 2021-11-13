@@ -1,0 +1,50 @@
+.paginationBlock {
+    display: grid;
+    grid-template-columns: 150px 200px 2fr;
+    grid-column-gap: 20px;
+    grid-template-areas:"c p n";
+    height: 40px;
+}
+.totalCounter, .currentPage  {
+    grid-area: c;
+    font-family: Poppins, sans-serif;
+    color: #3f414d;
+    font-size: 20px;
+    border-right: 2px solid whitesmoke;
+    line-height: 40px;
+    padding-left: 10px;
+}
+.currentPage {
+    grid-area: p;
+}
+ul.totalBlocks {
+    display: inline-block;
+    padding: 0;
+    margin: 0 5px 0 350px;
+    grid-area: n;
+}
+
+.pageItem {
+    display: inline;
+    margin: 2px 1px 0 1px;
+    color: black;
+    float: left;
+    border-radius: 5px;
+    padding: 4px 7px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.pageItem:hover {
+    background: lightgrey;
+}
+.selectedPage {
+    background: #50b5ff;
+    font-weight: bolder;
+    color: white;
+}
+
+.selectedItem {
+    font-weight: bolder;
+}
+

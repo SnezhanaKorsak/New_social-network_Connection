@@ -12,9 +12,11 @@ export type FriendType = {
 }
 export type initialStateType = {
     friends: Array<FriendType>
+    isFetching: boolean
 }
 const initialState: initialStateType = {
-    friends: []
+    friends: [],
+    isFetching: false
 }
 
 
@@ -34,32 +36,44 @@ export const friendsReducer = (state = initialState, action: ActionType): initia
 
         case "SET-FRIENDS":
             return {...state, friends: [...action.friends]}
+
+        case "TOGGLE-IS-FETCHING":
+            return {...state, isFetching: action.isFetching}
+
+
         default:
             return state
     }
 }
 
-type ActionType = ReturnType<typeof followAC> |
-    ReturnType<typeof unfollowAC> |
-    ReturnType<typeof setFriendsAC>
+type ActionType = ReturnType<typeof follow>
+    | ReturnType<typeof unfollow>
+    | ReturnType<typeof setFriends>
+    | ReturnType<typeof toggleIsFetching>
 
-export const followAC = (friendId: number) => {
+export const follow = (friendId: number) => {
     return {
         type: 'FOLLOW',
         friendId
     } as const
 }
 
-export const unfollowAC = (friendId: number) => {
+export const unfollow = (friendId: number) => {
     return {
         type: 'UNFOLLOW',
         friendId
     } as const
 }
 
-export const setFriendsAC = (friends: Array<FriendType>) => {
+export const setFriends = (friends: Array<FriendType>) => {
     return {
         type: 'SET-FRIENDS',
         friends
+    } as const
+}
+export const toggleIsFetching = (isFetching: boolean) => {
+    return {
+        type: "TOGGLE-IS-FETCHING",
+        isFetching
     } as const
 }

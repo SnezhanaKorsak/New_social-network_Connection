@@ -3,19 +3,19 @@ import s from "./Profile.module.css"
 import {ProfileCover} from "./ProfileCover/ProfileCover";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {ProfilePostContainer} from "./ProfilePosts/NewPost/ProfilePostContainer";
+import {ProfileType} from "../../redux/profileReducer";
 
 
-type ProfileType = {
- /*  store: StoreType*/
+type ProfilePropsType = {
+    profile: ProfileType | null
 }
 
-export function Profile(props: ProfileType) {
+export const Profile: React.FC<ProfilePropsType > = ({profile}) => {
 
     return <div className={s.content}>
-        <ProfileCover/>
-        <ProfileInfo/>
+        <ProfileCover userAvatar = {profile?.photos.small}/>
+        <ProfileInfo profile = {profile}/>
         <ProfilePostContainer />
-
     </div>
 
 }

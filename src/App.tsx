@@ -3,11 +3,11 @@ import './App.css';
 import {Header} from "./components/Header/Header";
 import {Navbar} from "./components/NavBar/Navbar";
 import {HashRouter, Redirect, Route, Switch} from "react-router-dom";
-import {Profile} from "./components/Profile/Profile";
 import {Music} from "./components/Music/Music";
 import {Video} from "./components/Video/Video";
 import {MessagesContainer} from "./components/Messages/MessagesContainer";
 import FriendsContainer from "./components/Friends/FriendsContainer";
+import ProfileContainer from "./components/Profile/ProfileContainer";
 
 
 type AppType = {
@@ -15,11 +15,11 @@ type AppType = {
 }
 
 export const PATH = {
-    PROFILE: '/profile',
-    MESSAGES: '/messages',
-    FRIENDS: '/friends',
-    MUSIC: '/music',
-    VIDEO: '/video'
+    PROFILE: '/profile/',
+    MESSAGES: '/messages/',
+    FRIENDS: '/friends/',
+    MUSIC: '/music/',
+    VIDEO: '/video/'
 }
 
 function App(props: AppType) {
@@ -34,7 +34,7 @@ function App(props: AppType) {
                     <Switch>
                         <Route path={'/'} exact render={() => <Redirect to={PATH.PROFILE}/>}/>
 
-                        <Route path={PATH.PROFILE} render={() => <Profile/>}/>
+                        <Route path={PATH.PROFILE + ':userId'} render={() => <ProfileContainer/>}/>
                         <Route path={PATH.MESSAGES} render={() => <MessagesContainer/>}/>
                         <Route path={PATH.FRIENDS} render={() => <FriendsContainer/>}/>
                         <Route path={PATH.MUSIC} render={() => <Music/>}/>
