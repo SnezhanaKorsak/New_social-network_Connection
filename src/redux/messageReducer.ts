@@ -50,16 +50,16 @@ export const messageReducer = (state = initialState, action: ActionType): Messag
 
 }
 
-type ActionType = ReturnType<typeof addMessageAC> | ReturnType<typeof onMessageChangeAC>
+type ActionType = ReturnType<typeof addMessage> | ReturnType<typeof onMessageChange>
 
-export const addMessageAC = (messageText: string) => {
+export const addMessage = (messageText: string) => {
 
     return {
         type: ADD_MESSAGE,
         messageText: messageText
     } as const
 }
-export const onMessageChangeAC = (newText: string) => {
+export const onMessageChange = (newText: string) => {
     return {
         type: UPDATE_NEW_MESSAGE,
         newText: newText

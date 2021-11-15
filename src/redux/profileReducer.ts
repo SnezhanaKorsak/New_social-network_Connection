@@ -1,3 +1,6 @@
+import {ThunkCreatorType} from "./redux-store";
+import {UserAPI} from "../api/api";
+
 export type PostType = {
     id: number
     message: string
@@ -54,7 +57,7 @@ const initialState: ProfilePageType = {
 }
 
 
-export const profileReducer = (state = initialState, action: ActionType): ProfilePageType => {
+export const profileReducer = (state = initialState, action: UserProfileActionType): ProfilePageType => {
     switch (action.type) {
         case ADD_POST:
             const newPost: PostType = {
@@ -76,7 +79,7 @@ export const profileReducer = (state = initialState, action: ActionType): Profil
     }
 }
 
-type ActionType = ReturnType<typeof addPostAC>
+export type UserProfileActionType = ReturnType<typeof addPostAC>
     | ReturnType<typeof onPostChangeAC>
     | ReturnType<typeof setUserProfile>
 
@@ -99,4 +102,13 @@ export const setUserProfile = (profile: ProfileType | null) => {
         type: SET_USER_PROFILE,
         profile
     } as const
+}
+
+export const getUserProfileTC = (userId: string): ThunkCreatorType => {
+    return (dispatch => {
+        UserAPI.getUsersProfile(userId)
+            .then(response => {
+                dispatch(setUserProfile(response.data))
+            })
+    })
 }

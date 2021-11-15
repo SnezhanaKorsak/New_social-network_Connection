@@ -1,44 +1,42 @@
 import React from 'react';
 import './App.css';
-import {Header} from "./components/Header/Header";
-import {Navbar} from "./components/NavBar/Navbar";
 import {HashRouter, Redirect, Route, Switch} from "react-router-dom";
 import {Music} from "./components/Music/Music";
 import {Video} from "./components/Video/Video";
-import {MessagesContainer} from "./components/Messages/MessagesContainer";
+import MessagesContainer from "./components/Messages/MessagesContainer";
 import FriendsContainer from "./components/Friends/FriendsContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
+import {Login} from "./Login/Login";
+import HeaderContainer from "./components/Header/HeaderContainer";
+import NavbarContainer from "./components/NavBar/NavbarContainer";
 
-
-type AppType = {
-  /*  store: StoreType*/
-}
 
 export const PATH = {
     PROFILE: '/profile/',
     MESSAGES: '/messages/',
     FRIENDS: '/friends/',
     MUSIC: '/music/',
-    VIDEO: '/video/'
+    VIDEO: '/video/',
+    LOGIN: '/login/',
 }
 
-function App(props: AppType) {
-   /* const state = props.store.getState()*/
+function App() {
 
     return (
         <HashRouter>
             <div className="app-wrapper">
-                <Header/>
-                <Navbar/>
+                <HeaderContainer/>
+                <NavbarContainer />
                 <div className="app-wrapper-content">
                     <Switch>
-                        <Route path={'/'} exact render={() => <Redirect to={PATH.PROFILE}/>}/>
+                        <Route path={'/'} exact render={() => <Redirect to={PATH.PROFILE + '20572'}/>}/>
 
                         <Route path={PATH.PROFILE + ':userId'} render={() => <ProfileContainer/>}/>
                         <Route path={PATH.MESSAGES} render={() => <MessagesContainer/>}/>
                         <Route path={PATH.FRIENDS} render={() => <FriendsContainer/>}/>
                         <Route path={PATH.MUSIC} render={() => <Music/>}/>
                         <Route path={PATH.VIDEO} render={() => <Video/>}/>
+                        <Route path={PATH.LOGIN} render={() => <Login/>}/>
                     </Switch>
 
                 </div>

@@ -1,9 +1,7 @@
-import React from 'react';
-import {addPostAC, onPostChangeAC, profileReducer} from "./profileReducer";
-import {addMessageAC, messageReducer, onMessageChangeAC} from "./messageReducer";
-import {sideBarReducer} from "./sideBarReducer";
 
-type PostType = {
+import React from "react";
+
+/*type PostType = {
     id: number
     message: string
     likeCount: number
@@ -32,22 +30,22 @@ type RootStateType = {
     profilePage: ProfilePageType
     messagePage: MessagePageType
     sideBar: SideBarType
-}
+}*/
 
-type ActionsType =
+/*type ActionsType =
     ReturnType<typeof addPostAC> | ReturnType<typeof onPostChangeAC> |
-    ReturnType<typeof addMessageAC> | ReturnType<typeof onMessageChangeAC>
+    ReturnType<typeof addMessage> | ReturnType<typeof onMessageChange>*/
 
-type StoreType = {
+/*type StoreType = {
     _state: RootStateType
     _callSubscriber: () => void
     getState: () => RootStateType
     subscribe: (observer: () => void) => void
-   /* dispatch: (action: ActionsType) => void*/
-}
+   /!* dispatch: (action: ActionsType) => void*!/
+}*/
 
 
-const store: StoreType = {
+/*const store: StoreType = {
     _state: {
         profilePage: {
             posts: [
@@ -89,14 +87,14 @@ const store: StoreType = {
     },
     subscribe(observer) {
         this._callSubscriber = observer
-    }/*,
+    }/!*,
     dispatch(action) {
         this._state.profilePage = profileReducer(this._state.profilePage, action)
         this._state.messagePage = messageReducer(this._state.messagePage, action)
         this._state.sideBar = sideBarReducer(this._state.sideBar, action)
         this._callSubscriber()
-    },*/
-}
+    },*!/
+}*/
 
 
 

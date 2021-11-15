@@ -8,12 +8,13 @@ import {ProfileType} from "../../redux/profileReducer";
 
 type ProfilePropsType = {
     profile: ProfileType | null
+
 }
 
 export const Profile: React.FC<ProfilePropsType > = ({profile}) => {
 
     return <div className={s.content}>
-        <ProfileCover userAvatar = {profile?.photos.small}/>
+        <ProfileCover userAvatar = {profile?.photos.small} userId={profile?.userId}/>
         <ProfileInfo profile = {profile}/>
         <ProfilePostContainer />
     </div>

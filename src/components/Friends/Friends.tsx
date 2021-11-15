@@ -1,6 +1,6 @@
 import React from "react";
 import s from './Friends.module.css'
-import {FriendType, initialStateType} from "../../redux/friendsReducer";
+import {initialStateType} from "../../redux/friendsReducer";
 import coverUser1 from '../../assets/images/cover-for-user-block-1.jpg'
 import coverUser2 from '../../assets/images/cover-for-user-block-2.jpg'
 import coverUser3 from '../../assets/images/cover-for-user-block-3.jpg'
@@ -14,14 +14,22 @@ import {PATH} from "../../App";
 
 type FriendsPropsType = {
     friendsPage: initialStateType
-    follow: (userId: number) => void
-    unfollow: (userId: number) => void
     isFetching: boolean
+    followingInProgress: number[]
+    followTC: (userId: number) => void
+    unfollowTC: (userId: number) => void
 }
-export const Friends: React.FC<FriendsPropsType> = ({friendsPage, follow, unfollow, isFetching}) => {
+export const Friends: React.FC<FriendsPropsType> = ({
+                                                        friendsPage,
+                                                        isFetching,
+                                                        followingInProgress,
+                                                        followTC,
+                                                        unfollowTC,
+
+                                                    }) => {
 
     const changeFollowHandler = (userId: number, followStatus: boolean) => {
-        followStatus ? unfollow(userId) : follow(userId)
+        followStatus ? unfollowTC(userId) : followTC(userId)
     }
 
     return (
@@ -35,7 +43,7 @@ export const Friends: React.FC<FriendsPropsType> = ({friendsPage, follow, unfoll
             </div>
 
             {isFetching ? <Preloader/>
-            :
+                :
                 friendsPage.friends.map(f => {
                     let cover = coverUser1
                     if (f.id % 2 === 0) cover = coverUser2
@@ -52,10 +60,13 @@ export const Friends: React.FC<FriendsPropsType> = ({friendsPage, follow, unfoll
 
                         <NavLink to={PATH.PROFILE + f.id}>
                             <img src={f.photos.small ? f.photos.small : notFindAva} className={s.avatar}
-                                      alt='avatar'/>
+                                 alt='avatar'/>
                         </NavLink>
 
-                        <button onClick={() => changeFollowHandler(f.id, f.followed)}>
+                        <button onClick={() => {
+                            changeFollowHandler(f.id, f.followed)
+                        }}
+                                disabled={followingInProgress.some(id => id === f.id)}>
                             {f.followed ? 'Follow' : 'Unfollow'}
                         </button>
 
@@ -71,7 +82,6 @@ export const Friends: React.FC<FriendsPropsType> = ({friendsPage, follow, unfoll
             </span>
                 })
             }
-
 
 
         </>

@@ -1,4 +1,6 @@
 import {setFriends, toggleIsFetching} from "./friendsReducer"
+import {UserAPI} from "../api/api";
+import {ThunkCreatorType} from "./redux-store";
 
 
 export type initialStateType = {
@@ -16,7 +18,7 @@ const initialState: initialStateType = {
     currentPage: 1,
 }
 
-export const paginationReducer = (state = initialState, action: ActionType): initialStateType => {
+export const paginationReducer = (state = initialState, action: PaginationActionType): initialStateType => {
     switch (action.type) {
         case "SET-CURRENT-PAGE":
             return {...state, currentPage: action.page}
@@ -30,7 +32,7 @@ export const paginationReducer = (state = initialState, action: ActionType): ini
 
 }
 
-type ActionType = ReturnType<typeof setCurrentPage>
+export type PaginationActionType = ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setTotalCount>
     | ReturnType<typeof setFriends>
     | ReturnType<typeof toggleIsFetching>
@@ -49,3 +51,15 @@ export const setCurrentPage = (page: number) => {
     } as const
 }
 
+export const getUserTC = (currentPage: number, pageLimit: number): ThunkCreatorType => {
+    return (dispatch) => {
+        dispatch(toggleIsFetching(true))
+        dispatch(setCurrentPage(currentPage))
+        UserAPI.getUsers(currentPage, pageLimit)
+            .then(data => {
+                dispatch(toggleIsFetching(false))
+                dispatch(setFriends(data.items));
+                dispatch(setTotalCount(data.totalCount))
+            })
+    }
+}

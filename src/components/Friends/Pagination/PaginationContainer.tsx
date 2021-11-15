@@ -1,10 +1,10 @@
 import {connect} from "react-redux";
 import React from "react";
-import axios from "axios";
 import {AppStateType} from "../../../redux/redux-store";
-import {FriendType, toggleIsFetching, setFriends} from "../../../redux/friendsReducer";
 import {Pagination} from "./Pagination";
-import {setCurrentPage, setTotalCount} from "../../../redux/paginationReducer";
+import {getUserTC} from "../../../redux/paginationReducer";
+
+
 
 export const LEFT_PAGE = 'LEFT';
 export const RIGHT_PAGE = 'RIGHT';
@@ -25,13 +25,7 @@ const range = (from: number | string, to: number, step = 1) => {
 
 class PaginationContainer extends React.Component<PaginationContainerPropsType> {
     componentDidMount(): void {
-        this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageLimit}`)
-            .then(response => {
-                this.props.toggleIsFetching(false)
-                this.props.setFriends(response.data.items);
-                this.props.setTotalCount(response.data.totalCount)
-            })
+        this.props.getUserTC(this.props.currentPage, this.props.pageLimit)
     }
 
     fetchPageNumbers = () => {
@@ -80,35 +74,17 @@ class PaginationContainer extends React.Component<PaginationContainerPropsType> 
     }
 
     handleClick = (page: number | string) => {
-        this.props.toggleIsFetching(true)
         if (typeof page === "number") {
-            this.props.setCurrentPage(page)
-            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageLimit}`)
-                .then(response => {
-                    this.props.toggleIsFetching(false)
-                    this.props.setFriends(response.data.items)
-                })
+            this.props.getUserTC(page, this.props.pageLimit)
         }
     }
     handleMoveLeft = () => {
-        this.props.toggleIsFetching(true)
         const previousPage = this.props.currentPage - (this.props.pageNeighbours * 2) - 1
-        this.props.setCurrentPage(previousPage)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${previousPage}&count=${this.props.pageLimit}`)
-            .then(response => {
-                this.props.toggleIsFetching(false)
-                this.props.setFriends(response.data.items)
-            })
+        this.props.getUserTC(previousPage, this.props.pageLimit)
     }
     handleMoveRight = () => {
-        this.props.toggleIsFetching(true)
         const nextPage = this.props.currentPage + (this.props.pageNeighbours * 2) + 1
-        this.props.setCurrentPage(nextPage)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${nextPage}&count=${this.props.pageLimit}`)
-            .then(response => {
-                this.props.toggleIsFetching(false)
-                this.props.setFriends(response.data.items)
-            })
+        this.props.getUserTC(nextPage, this.props.pageLimit)
     }
 
     render(): React.ReactNode {
@@ -134,10 +110,7 @@ export type mapStatePropsType = {
 
 }
 export type mapDispatchPropsType = {
-    setCurrentPage: (page: number) => void
-    setTotalCount: (totalCount: number) => void
-    setFriends: (friends: Array<FriendType>) => void
-    toggleIsFetching: (isFetching: boolean) => void
+    getUserTC: (currentPage: number, pageLimit: number) => void
 }
 
 const mapStateToProps = (state: AppStateType): mapStatePropsType => {
@@ -166,9 +139,4 @@ const mapStateToProps = (state: AppStateType): mapStatePropsType => {
     }
 }*/
 
-export default connect(mapStateToProps, {
-    setFriends,
-    setCurrentPage,
-    setTotalCount,
-    toggleIsFetching
-})(PaginationContainer)
+export default connect(mapStateToProps, {getUserTC})(PaginationContainer)

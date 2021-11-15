@@ -10,7 +10,7 @@
 }
 .infoHeader li {
     display: inline;
-    margin-right: 135px;
+    margin-right: 130px;
     padding: 3px;
 }
 .infoBlock {
@@ -20,11 +20,12 @@
 .basicItem.order{
     font-family: Poppins, sans-serif;
     font-weight: bold;
-    margin-right: 15px;
+    margin-right: -10px;
     color: #0e2d41;
 }
 .basicItem{
     font-family: Montserrat, sans-serif;
+    width: 120px;
     color: #3f414d;
     font-size: 14px;
     line-height: 28px;

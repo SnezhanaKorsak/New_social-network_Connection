@@ -1,34 +1,32 @@
-import React, {ChangeEvent} from 'react';
-import {addMessageAC, MessagePageType, onMessageChangeAC} from '../../redux/messageReducer';
+import React  from 'react';
+import {addMessage, MessagePageType, onMessageChange} from '../../redux/messageReducer';
 import {Messages} from "./Messages";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
-import {Dispatch} from "redux";
+import { compose } from 'redux';
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+
 
 
 type mapStatePropsType = {
     messagePage: MessagePageType
+    isAuth: boolean
 }
 type mapDispatchPropsType = {
     addMessage: (messageText: string) => void
-    updateMessageText: (newText: string) => void
+    onMessageChange: (newText: string) => void
 }
+export type MessagePropsType = mapStatePropsType & mapDispatchPropsType
 
 const mapStateToProps = (state: AppStateType): mapStatePropsType => {
     return {
-        messagePage: state.messagePage
+        messagePage: state.messagePage,
+        isAuth: state.auth.isAuth
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch): mapDispatchPropsType => {
-    return {
-        addMessage: (messageText: string) => {
-            dispatch(addMessageAC(messageText))
-        },
-        updateMessageText: (newText: string) => {
-            dispatch(onMessageChangeAC(newText))
-        }
-    }
-}
 
-export const MessagesContainer = connect(mapStateToProps, mapDispatchToProps)(Messages)
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, {addMessage,onMessageChange }),
+    withAuthRedirect
+    )(Messages)
