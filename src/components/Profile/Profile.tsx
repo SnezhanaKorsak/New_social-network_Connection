@@ -8,15 +8,20 @@ import {ProfileType} from "../../redux/profileReducer";
 
 type ProfilePropsType = {
     profile: ProfileType | null
-
+    status: string
+    updateStatus: (status: string) => void
 }
 
-export const Profile: React.FC<ProfilePropsType > = ({profile}) => {
+export const Profile: React.FC<ProfilePropsType> = ({
+                                                        profile,
+                                                        status,
+                                                        updateStatus
+                                                    }) => {
 
     return <div className={s.content}>
-        <ProfileCover userAvatar = {profile?.photos.small} userId={profile?.userId}/>
-        <ProfileInfo profile = {profile}/>
-        <ProfilePostContainer />
+        <ProfileCover userAvatar={profile?.photos.small} userId={profile?.userId}/>
+        <ProfileInfo profile={profile} status={status} updateStatus={updateStatus}/>
+        <ProfilePostContainer/>
     </div>
 
 }
