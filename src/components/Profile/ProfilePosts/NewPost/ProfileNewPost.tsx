@@ -29,8 +29,10 @@ export function ProfileNewPost(props: ProfileNewPostType) {
                 alt={'avatar'}
             />
         </span>
+
         <textarea placeholder={"Write something here..."} value={props.message} onChange={onPostChange}/>
         <hr/>
         <button onClick={addPost}>Add</button>
     </div>
 }
+

@@ -1,0 +1,48 @@
+.container {
+    min-height: 400px;
+    background: url("https://www.online-rezept.net/wp-content/uploads/2020/06/online-sicherheit.jpg");
+    background-size: cover;
+    border-radius: 5px;
+    color: #3f414d;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 15px;
+    width: 350px;
+    min-height: 150px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: -10px 15px 55px 2px #8b8989;
+    font-size: 1.1rem;
+}
+
+.container h1 {
+    margin-bottom: 0;
+}
+
+.item {
+    display: block;
+    margin-bottom: 10px;
+}
+.form button {
+    position: relative;
+    left: 45px;
+    margin-top: 20px;
+    background-color: #50b5ff;
+    height: 30px;
+    width: 80px;
+    border-radius: 5px;
+    border: none;
+    font-size: 0.8em;
+    color: whitesmoke;
+    text-transform: uppercase;
+    cursor: pointer;
+}

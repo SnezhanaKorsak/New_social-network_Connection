@@ -1,24 +1,20 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import s from './Messages.module.css'
 import {UserItem} from "./UserItem/UserItem";
 import {DialogItem} from "./DialogItem/DialogItem";
-import { MessagePropsType } from './MessagesContainer';
-import {Redirect} from "react-router-dom";
-import {PATH} from "../../App";
+import {MessagePropsType} from './MessagesContainer';
+import {Field, Form, Formik} from "formik";
 
 
 export function Messages(props: MessagePropsType) {
 
-    const addMessage = () => {
-        props.addMessage(props.messagePage.newMessageText)
-        props.onMessageChange('')
-    }
-    const updateMessageText = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.onMessageChange(e.currentTarget.value)
+    const addMessage = (newMessage: string) => {
+        props.addMessage(newMessage)
     }
 
-    let usersElement = props.messagePage.users.map(u => <UserItem key={u.id} id={u.id} name={u.name}/> );
-    let dialogElement = props.messagePage.dialogs.map(d => <DialogItem key={d.id} message={d.message}/> );
+
+    let usersElement = props.messagePage.users.map(u => <UserItem key={u.id} id={u.id} name={u.name}/>);
+    let dialogElement = props.messagePage.dialogs.map(d => <DialogItem key={d.id} message={d.message}/>);
 
 
     return (
@@ -29,9 +25,44 @@ export function Messages(props: MessagePropsType) {
 
             <div className={s.dialogs}>
                 {dialogElement}
-                <textarea value={props.messagePage.newMessageText} onChange={updateMessageText}/>
-                <button onClick={addMessage}>Add message</button>
+                <AddNewMessageForm addMessage={addMessage}/>
             </div>
+        </div>
+    )
+}
+
+type DataFormType = {
+    newMessage: string
+}
+type AddNewMessageFormPropsType = {
+    addMessage: (newMessage: string) => void
+}
+
+const AddNewMessageForm: React.FC<AddNewMessageFormPropsType> = ({addMessage}) => {
+
+    const addMessageHandler = (values: DataFormType, {setSubmitting}: { setSubmitting: (isSubmitting: boolean) => void }) => {
+        addMessage(values.newMessage)
+        setSubmitting(false)
+    }
+
+    return (
+        <div className={s.addMessageForm}>
+            <Formik
+                initialValues={{newMessage: ''}}
+                onSubmit={addMessageHandler}
+            >
+                {({isSubmitting}) => (
+                    <Form>
+                        <Field className={s.textarea} type="textarea" name="newMessage"
+                               placeholder='Write something here...'
+                               autocomplete="off"
+                        />
+                        <button type="submit" disabled={isSubmitting}>
+                            Submit
+                        </button>
+                    </Form>
+                )}
+            </Formik>
         </div>
     )
 }

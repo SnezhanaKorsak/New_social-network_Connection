@@ -34,6 +34,10 @@ export function Navbar(props: PropsType) {
      <div className={s.item}>
          <NavLink to='/settings' activeClassName={s.active}>Settings</NavLink>
      </div>
+
+     <div className={s.item}>
+         <NavLink to={PATH.LOGIN} activeClassName={s.active}>Login</NavLink>
+     </div>
  </nav>
 
 }
