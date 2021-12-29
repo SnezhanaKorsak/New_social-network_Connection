@@ -6,7 +6,7 @@ import {Video} from "./components/Video/Video";
 import MessagesContainer from "./components/Messages/MessagesContainer";
 import FriendsContainer from "./components/Friends/FriendsContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
-import {Login} from "./Login/Login";
+import Login from "./Login/Login";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import NavbarContainer from "./components/NavBar/NavbarContainer";
 

@@ -4,7 +4,7 @@ import {NavLink} from "react-router-dom";
 import {PATH} from "../../App";
 
 type PropsType = {
-    userId: number | null
+    userId: string | null
 }
 
 export function Navbar(props: PropsType) {

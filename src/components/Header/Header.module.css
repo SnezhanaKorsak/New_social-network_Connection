@@ -12,6 +12,7 @@
 }
 .logoText {
     display: inline-block;
+    width: 500px;
     position: relative;
     bottom: 30px;
     padding: 0 15px;
@@ -22,4 +23,23 @@
 }
 .login a{
    text-decoration: none;
+}
+.loginContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 10px;
+}
+
+.button {
+    margin-top: 10px;
+    background: linear-gradient(90deg, #88d1ff,#b6aafd,#e782fc);
+    height: 35px;
+    width: 100px;
+    border-radius: 5px;
+    border: none;
+    font-size: large;
+    color: whitesmoke;
+    text-transform: uppercase;
+    cursor: pointer;
 }

@@ -23,7 +23,7 @@ class NavbarContainer extends React.Component<PropsType> {
 
 type mapStatePropsType = {
     isAuth: boolean
-    userId: number | null
+    userId: string | null
 }
 type mapDispatchPropsType = {
     setUserProfile: (profile: ProfileType | null) => void

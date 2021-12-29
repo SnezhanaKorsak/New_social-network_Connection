@@ -1,7 +1,7 @@
 import axios from "axios";
 
 type DataType = {
-    id: number
+    id: string
     login: string
     email: string
 }
@@ -35,6 +35,12 @@ export const UserAPI = {
 export const AuthAPI = {
     me () {
         return instance.get<ApiResponseType>('/auth/me').then(response => response.data)
+    },
+    logIn(email: string, password: string, rememberMe: boolean = false) {
+        return instance.post('/auth/login', {email, password, rememberMe})
+    },
+    logout() {
+        return instance.delete('/auth/login')
     }
 }
 

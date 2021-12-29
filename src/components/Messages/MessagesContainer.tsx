@@ -1,11 +1,10 @@
-import React  from 'react';
+import React from 'react';
 import {addMessage, MessagePageType, onMessageChange} from '../../redux/messageReducer';
 import {Messages} from "./Messages";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
-import { compose } from 'redux';
+import {compose} from 'redux';
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
-
 
 
 type mapStatePropsType = {
@@ -27,6 +26,6 @@ const mapStateToProps = (state: AppStateType): mapStatePropsType => {
 
 
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {addMessage,onMessageChange }),
-    //withAuthRedirect
-    )(Messages)
+    connect(mapStateToProps, {addMessage, onMessageChange}),
+    withAuthRedirect
+)(Messages)
