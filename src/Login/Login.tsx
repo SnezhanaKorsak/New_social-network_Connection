@@ -1,38 +1,41 @@
 import React from "react";
 import s from './Login.module.css'
-import {ErrorMessage, Field, Form, Formik} from "formik";
+import { Form, Formik} from "formik";
+import {TextField} from "../Form/TextField";
+import { SignUpSchema } from "../common/validation/validation";
 
-type DataFormType = {
-    login: string
+
+
+type MyFormValues = {
+    email: string
     password: string
     isRememberMe: boolean
 }
 
 const LoginForm = () => {
-    const onSubmitHandler = (values: DataFormType, {setSubmitting}: { setSubmitting: (isSubmitting: boolean) => void }) => {
+    const initialValues: MyFormValues = {email: '', password: '', isRememberMe: false}
+
+    const onSubmitHandler = (values: MyFormValues, {setSubmitting}: { setSubmitting: (isSubmitting: boolean) => void }) => {
         setTimeout(() => {
             alert(JSON.stringify(values, null, 2));
             setSubmitting(false);
-        }, 400);
+        }, 0);
     }
-
 
     return (
 
-        <div className={s.form}>
+        <div>
             <Formik
-                initialValues={{login: '', password: '', isRememberMe: false}}
+                initialValues={initialValues}
+                validationSchema={SignUpSchema}
                 onSubmit={onSubmitHandler}
             >
-                {({isSubmitting}) => (
-                    <Form>
-                        <Field className={s.item} type="text" name="login" placeholder='Login'/>
-                        <ErrorMessage name="login" component="div"/>
-                        <Field className={s.item} type="password" name="password" placeholder='Password'/>
-                        <ErrorMessage name="password" component="div"/>
-                        <Field type='checkbox' name={'isRememberMe'} component={'input'}/>
-                        Remember me
-                        <button className={s.item} type="submit" disabled={isSubmitting}>
+                {({ isValidating }) => (
+                    <Form className={s.form}>
+                        <TextField type='text' name='email' placeholder='Email'/>
+                        <TextField type='password' name='password' placeholder='Password'/>
+                        <TextField type='checkbox' name='isRememberMe' placeholder='Password' label='Remember me'/>
+                        <button className={s.button} type="submit" disabled={isValidating}>
                             Submit
                         </button>
                     </Form>

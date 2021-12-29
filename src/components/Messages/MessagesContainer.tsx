@@ -28,5 +28,5 @@ const mapStateToProps = (state: AppStateType): mapStatePropsType => {
 
 export default compose<React.ComponentType>(
     connect(mapStateToProps, {addMessage,onMessageChange }),
-    withAuthRedirect
+    //withAuthRedirect
     )(Messages)

@@ -28,14 +28,9 @@
     margin-bottom: 0;
 }
 
-.item {
-    display: block;
-    margin-bottom: 10px;
-}
-.form button {
-    position: relative;
-    left: 45px;
-    margin-top: 20px;
+.button {
+    /*position: relative;*/
+    /*left: 45px;*/
     background-color: #50b5ff;
     height: 30px;
     width: 80px;

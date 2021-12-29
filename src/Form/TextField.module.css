@@ -1,0 +1,16 @@
+.item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.errorMessage {
+    height: 15px;
+    margin-top: 0;
+    color: red;
+    font-size: 0.8em;
+    text-align: center;
+    line-height: 15px;
+}
+.errorMessage:first-letter {
+    text-transform: uppercase;
+}

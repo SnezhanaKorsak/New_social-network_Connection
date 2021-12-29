@@ -1,5 +1,7 @@
 .nav {
     grid-area: n;
+    min-height: 400px;
+    box-sizing: border-box;
     background-color: white;
     margin-bottom: 20px;
     padding: 10px;
