@@ -24,9 +24,6 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
 
 
 class HeaderContainer extends React.Component<PropsType> {
-    componentDidMount(): void {
-        this.props.getAuthDataTC()
-    }
 
     render(): React.ReactNode {
         return <Header isAuth={this.props.isAuth} login={this.props.login} logoutTC={this.props.logoutTC}/>

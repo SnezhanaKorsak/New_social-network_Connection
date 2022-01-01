@@ -6,6 +6,7 @@ import {friendsReducer, UserActionType} from "./friendsReducer";
 import {PaginationActionType, paginationReducer} from "./paginationReducer";
 import {AuthActionType, authReducer} from "./authReducer";
 import thunk, {ThunkAction} from "redux-thunk";
+import {appReducer} from "./appReducer";
 
 export type AppStateType = ReturnType<typeof rootReducer>
 
@@ -14,7 +15,7 @@ export type ActionsType = UserActionType | PaginationActionType | AuthActionType
 
 //типизация ThunkCreator
 
-export type ThunkCreatorType = ThunkAction<void, AppStateType, unknown, ActionsType>
+export type ThunkCreatorType = ThunkAction<any, AppStateType, unknown, ActionsType>
 
 const rootReducer = combineReducers({
     profilePage: profileReducer,
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
     friendsPage: friendsReducer,
     pagination: paginationReducer,
     auth: authReducer,
+    app: appReducer,
 })
 
 export const store = createStore(rootReducer, applyMiddleware(thunk))

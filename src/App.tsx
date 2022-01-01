@@ -9,6 +9,10 @@ import ProfileContainer from "./components/Profile/ProfileContainer";
 import Login from "./Login/Login";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import NavbarContainer from "./components/NavBar/NavbarContainer";
+import {initializeApp} from "./redux/appReducer";
+import {connect} from "react-redux";
+import {AppStateType} from "./redux/redux-store";
+import {Preloader} from "./common/Preloader/Preloader";
 
 
 export const PATH = {
@@ -20,29 +24,51 @@ export const PATH = {
     LOGIN: '/login/',
 }
 
-function App() {
-
-    return (
-        <HashRouter>
-            <div className="app-wrapper">
-                <HeaderContainer/>
-                <NavbarContainer />
-                <div className="app-wrapper-content">
-                    <Switch>
-                        <Route path={'/'} exact render={() => <Redirect to={PATH.PROFILE + '20572'}/>}/>
-
-                        <Route path={PATH.PROFILE + ':userId'} render={() => <ProfileContainer/>}/>
-                        <Route path={PATH.MESSAGES} render={() => <MessagesContainer/>}/>
-                        <Route path={PATH.FRIENDS} render={() => <FriendsContainer/>}/>
-                        <Route path={PATH.MUSIC} render={() => <Music/>}/>
-                        <Route path={PATH.VIDEO} render={() => <Video/>}/>
-                        <Route path={PATH.LOGIN} render={() => <Login/>}/>
-                    </Switch>
-
-                </div>
-            </div>
-        </HashRouter>
-    );
+type AppPropsType = {
+    initialized: boolean
+    initializeApp: () => void
 }
 
-export default App;
+class App extends React.Component<AppPropsType> {
+    componentDidMount(): void {
+        this.props.initializeApp()
+    }
+
+    render() {
+        if(!this.props.initialized) return <Preloader/>
+
+        return (
+            <HashRouter>
+                <div className="app-wrapper">
+                    <HeaderContainer/>
+                    <NavbarContainer/>
+                    <div className="app-wrapper-content">
+                        <Switch>
+                            <Route path={'/'} exact render={() => <Redirect to={PATH.PROFILE + '20572'}/>}/>
+
+                            <Route path={PATH.PROFILE + ':userId'} render={() => <ProfileContainer/>}/>
+                            <Route path={PATH.MESSAGES} render={() => <MessagesContainer/>}/>
+                            <Route path={PATH.FRIENDS} render={() => <FriendsContainer/>}/>
+                            <Route path={PATH.MUSIC} render={() => <Music/>}/>
+                            <Route path={PATH.VIDEO} render={() => <Video/>}/>
+                            <Route path={PATH.LOGIN} render={() => <Login/>}/>
+                        </Switch>
+
+                    </div>
+                </div>
+            </HashRouter>
+        );
+    }
+}
+
+type mapStatePropsType = {
+    initialized: boolean
+}
+
+const mapStateToProps = (state: AppStateType): mapStatePropsType => {
+    return {
+        initialized: state.app.initialized
+    }
+}
+
+export default connect(mapStateToProps, {initializeApp})(App)
