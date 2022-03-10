@@ -1,8 +1,8 @@
 import {connect} from "react-redux";
 import React from "react";
-import {AppStateType} from "../../../redux/redux-store";
+import {AppStateType} from "../../redux/redux-store";
 import {Pagination} from "./Pagination";
-import {getUserTC} from "../../../redux/paginationReducer";
+import {getUserTC} from "../../redux/paginationReducer";
 
 
 
@@ -122,21 +122,5 @@ const mapStateToProps = (state: AppStateType): mapStatePropsType => {
 
     }
 }
-/*const mapDispatchToProps = (dispatch: Dispatch): mapDispatchPropsType => {
-    return {
-        setFriends: (friends: Array<FriendType>) => {
-            dispatch(setFriendsAC(friends))
-        },
-        setCurrentPage: (page: number) => {
-            dispatch(setCurrentPageAC(page))
-        },
-        setTotalCount: (totalCount: number) => {
-            dispatch(setTotalCountAC(totalCount))
-        },
-        isFetchingHandler: (isFetching: boolean) => {
-            dispatch(isFetchingAC(isFetching))
-        }
-    }
-}*/
 
 export default connect(mapStateToProps, {getUserTC})(PaginationContainer)

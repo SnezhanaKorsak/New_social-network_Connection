@@ -10,6 +10,15 @@
     align-items: center;
 }
 
+.formLabel p{
+    margin: 0;
+}
+
+.formLabel span{
+    color:#46216b;
+    font-weight: bold;
+}
+
 .form {
     display: flex;
     flex-direction: column;
@@ -25,12 +34,10 @@
 }
 
 .container h1 {
-    margin-bottom: 0;
+    margin: 0;
 }
 
 .button {
-    /*position: relative;*/
-    /*left: 45px;*/
     background-color: #50b5ff;
     height: 30px;
     width: 80px;

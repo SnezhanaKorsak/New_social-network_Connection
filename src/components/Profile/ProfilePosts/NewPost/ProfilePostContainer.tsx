@@ -1,4 +1,3 @@
-import React from 'react';
 import {addPostAC, onPostChangeAC, ProfilePageType} from "../../../../redux/profileReducer";
 import {connect} from "react-redux";
 import {ProfilePosts} from "../ProfilePosts";

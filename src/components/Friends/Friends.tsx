@@ -6,7 +6,7 @@ import coverUser2 from '../../assets/images/cover-for-user-block-2.jpg'
 import coverUser3 from '../../assets/images/cover-for-user-block-3.jpg'
 import coverUser4 from '../../assets/images/cover-for-user-block-4.jpg'
 import notFindAva from '../../assets/images/unnamed.jpg'
-import PaginationContainer from "./Pagination/PaginationContainer";
+import PaginationContainer from "../../common/Pagination/PaginationContainer";
 import {Preloader} from "../../common/Preloader/Preloader";
 import {NavLink} from "react-router-dom";
 import {PATH} from "../../App";
@@ -82,8 +82,6 @@ export const Friends: React.FC<FriendsPropsType> = ({
             </span>
                 })
             }
-
-
         </>
     )
 }

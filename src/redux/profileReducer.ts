@@ -22,7 +22,7 @@ type PhotosType = {
 }
 export type ProfileType = {
     aboutMe: string
-    "contacts": ContactsType
+    contacts: ContactsType
     lookingForAJob: boolean
     lookingForAJobDescription: string
     fullName: string
@@ -80,6 +80,9 @@ export const profileReducer = (state = initialState, action: UserProfileActionTy
         case "SET-USER-STATUS":
             return {...state, status: action.status}
 
+        case "DELETE-POST":
+            return {...state, posts: state.posts.filter(post => post.id !== action.id)}
+
         default:
             return state
     }
@@ -89,9 +92,9 @@ export type UserProfileActionType = ReturnType<typeof addPostAC>
     | ReturnType<typeof onPostChangeAC>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setUserStatus>
+    | ReturnType<typeof deletePostAC>
 
 export const addPostAC = (postText: string) => {
-
     return {
         type: ADD_POST,
         postText
@@ -117,28 +120,29 @@ export const setUserStatus = (status: string) => {
     } as const
 }
 
-export const getUserProfileTC = (userId: string): ThunkCreatorType => {
-    return (dispatch => {
-        ProfileAPI.getUsersProfile(userId)
-            .then(response => {
-                dispatch(setUserProfile(response.data))
-            })
-    })
+export const deletePostAC = (id: number) => {
+    return {
+        type: "DELETE-POST",
+        id
+    } as const
 }
-export const getUserStatusTC = (userId: string): ThunkCreatorType => {
-    return (dispatch => {
-        ProfileAPI.getUserStatus(userId)
-            .then(response => {
-                dispatch(setUserStatus(response.data))
-            })
-    })
+
+export const getUserProfileTC = (userId: string): ThunkCreatorType => async (dispatch) => {
+    let response = await ProfileAPI.getUsersProfile(userId)
+
+    dispatch(setUserProfile(response.data))
 }
-export const updateStatusTC = (status: string): ThunkCreatorType => {
-    return (dispatch => {
-        ProfileAPI.updateStatus(status)
-            .then(response => {
-                if(response.data.resultCode === 0)
-                dispatch(setUserStatus(status))
-            })
-    })
+
+export const getUserStatusTC = (userId: string): ThunkCreatorType => async (dispatch) => {
+    let response = await ProfileAPI.getUserStatus(userId)
+
+    dispatch(setUserStatus(response.data))
+
+}
+export const updateStatusTC = (status: string): ThunkCreatorType => async (dispatch) => {
+    let response = await ProfileAPI.updateStatus(status)
+
+    if (response.data.resultCode === 0) {
+        dispatch(setUserStatus(status))
+    }
 }

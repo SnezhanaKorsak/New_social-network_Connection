@@ -30,11 +30,9 @@ export const setInitialised = () => {
     } as const
 }
 
-export const initializeApp = (): ThunkAction<void, AppStateType, unknown, ActionType> => {
-    return (dispatch) => {
-        dispatch(getAuthDataTC())
-            .then (() => {
-                dispatch(setInitialised())
-            })
-    }
+export const initializeApp = (): ThunkAction<void, AppStateType, unknown, ActionType> => (dispatch) => {
+    dispatch(getAuthDataTC())
+        .then(() => {
+            dispatch(setInitialised())
+        })
 }

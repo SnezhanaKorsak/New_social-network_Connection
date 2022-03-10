@@ -11,7 +11,7 @@ type TextFieldType = {
 }
 
 export const TextField: React.FC<TextFieldType> = ({label, ...props}) => {
-    const [field, meta] = useField(props)
+    const [field] = useField(props)
 
     return (
         <>

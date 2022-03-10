@@ -51,15 +51,14 @@ export const setCurrentPage = (page: number) => {
     } as const
 }
 
-export const getUserTC = (currentPage: number, pageLimit: number): ThunkCreatorType => {
-    return (dispatch) => {
-        dispatch(toggleIsFetching(true))
-        dispatch(setCurrentPage(currentPage))
-        UserAPI.getUsers(currentPage, pageLimit)
-            .then(data => {
-                dispatch(toggleIsFetching(false))
-                dispatch(setFriends(data.items));
-                dispatch(setTotalCount(data.totalCount))
-            })
-    }
+export const getUserTC = (currentPage: number, pageLimit: number): ThunkCreatorType => async (dispatch) => {
+    dispatch(toggleIsFetching(true))
+    dispatch(setCurrentPage(currentPage))
+
+    let response = await UserAPI.getUsers(currentPage, pageLimit)
+
+    dispatch(toggleIsFetching(false))
+    dispatch(setFriends(response.items));
+    dispatch(setTotalCount(response.totalCount))
+
 }

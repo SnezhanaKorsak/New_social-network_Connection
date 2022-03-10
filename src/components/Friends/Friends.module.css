@@ -88,3 +88,9 @@
 .blockItem button:disabled {
     background: lightgrey;
 }
+.avatar {
+    width: 120px;
+    height: 120px;
+    margin-top: -45px;
+    margin-left: 20px;
+}

@@ -1,5 +1,6 @@
 import {ThunkCreatorType} from "./redux-store";
 import {UserAPI} from "../api/api";
+import {followUnfollowFlow} from "../utils/helper-utils";
 
 type PhotosType = {
     small: string
@@ -11,7 +12,7 @@ export type FriendType = {
     photos: PhotosType
     status: string
     followed: boolean
-
+    uniqueUrlName: null | string
 }
 export type initialStateType = {
     friends: Array<FriendType>
@@ -56,11 +57,12 @@ export const friendsReducer = (state = initialState, action: UserActionType): in
     }
 }
 
-export type UserActionType = ReturnType<typeof follow>
-    | ReturnType<typeof unfollow>
+export type UserActionType = followUnfollowActionsType
     | ReturnType<typeof setFriends>
     | ReturnType<typeof toggleIsFetching>
     | ReturnType<typeof toggleIsFollowingProgress>
+
+export  type followUnfollowActionsType = ReturnType<typeof follow> | ReturnType<typeof unfollow>
 
 export const follow = (friendId: number) => {
     return {
@@ -96,22 +98,14 @@ export const toggleIsFollowingProgress = (isFetching: boolean, userId: number) =
 }
 
 
+export const followTC = (userId: number): ThunkCreatorType => async (dispatch) => {
+    const apiMethod = UserAPI.followUser.bind(UserAPI)
 
-export const followTC = (userId: number): ThunkCreatorType => {
-    return (dispatch) => {
-        dispatch(toggleIsFollowingProgress(true, userId))
-        UserAPI.followUser(userId).then(data => {
-            if (data.resultCode === 0) dispatch(follow(userId))
-            dispatch(toggleIsFollowingProgress(false, userId))
-        })
-    }
+    await followUnfollowFlow(dispatch, userId, apiMethod, follow)
 }
-export const unfollowTC = (userId: number): ThunkCreatorType => {
-    return (dispatch) => {
-        dispatch(toggleIsFollowingProgress(true, userId))
-        UserAPI.unfollowUser(userId).then(data => {
-            if (data.resultCode === 0) dispatch(unfollow(userId))
-            dispatch(toggleIsFollowingProgress(false, userId))
-        })
-    }
+
+export const unfollowTC = (userId: number): ThunkCreatorType => async (dispatch) => {
+    const apiMethod = UserAPI.unfollowUser.bind(UserAPI)
+
+    await followUnfollowFlow(dispatch, userId, apiMethod, unfollow)
 }

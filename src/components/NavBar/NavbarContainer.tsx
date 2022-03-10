@@ -15,7 +15,6 @@ class NavbarContainer extends React.Component<PropsType> {
                 this.props.setUserProfile(response.data)
             })
     }
-
     render(): React.ReactNode {
         return <Navbar userId={this.props.userId}/>
     }

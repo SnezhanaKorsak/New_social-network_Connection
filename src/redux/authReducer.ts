@@ -33,34 +33,27 @@ export const setAuthData = (userId: string | null, email: string | null, login: 
     } as const
 }
 
-export const getAuthDataTC = (): ThunkCreatorType => {
-    return (dispatch) => {
-       return  AuthAPI.me().then(data => {
-            if (data.resultCode === 0) {
-                let {id, email, login} = data.data
-                dispatch(setAuthData(id, email, login, true))
-            }
-        })
+export const getAuthDataTC = (): ThunkCreatorType => async (dispatch) => {
+    let data = await AuthAPI.me()
+
+    if (data.resultCode === 0) {
+        let {id, email, login} = data.data
+        dispatch(setAuthData(id, email, login, true))
     }
 }
 
-export const loginTC = (email: string, password: string, rememberMe: boolean): ThunkCreatorType => {
-    return (dispatch) => {
-        AuthAPI.logIn(email, password, rememberMe).then(res => {
-            if (res.data.resultCode === 0) {
-                dispatch(getAuthDataTC())
-            }
-        })
+export const loginTC = (email: string, password: string, rememberMe: boolean): ThunkCreatorType => async (dispatch) => {
+    let response = await AuthAPI.logIn(email, password, rememberMe)
+
+    if (response.data.resultCode === 0) {
+        dispatch(getAuthDataTC())
     }
 }
 
-export const logoutTC = (): ThunkCreatorType => {
-    return (dispatch) => {
-        AuthAPI.logout()
-            .then(res => {
-                if (res.data.resultCode === 0) {
-                    dispatch(setAuthData(null, null, null, false))
-                }
-            })
+export const logoutTC = (): ThunkCreatorType => async (dispatch) => {
+    let response = await AuthAPI.logout()
+
+    if (response.data.resultCode === 0) {
+        dispatch(setAuthData(null, null, null, false))
     }
 }

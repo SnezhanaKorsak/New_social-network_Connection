@@ -55,7 +55,7 @@ const AddNewMessageForm: React.FC<AddNewMessageFormPropsType> = ({addMessage}) =
                     <Form>
                         <Field className={s.textarea} type="textarea" name="newMessage"
                                placeholder='Write something here...'
-                               autocomplete="off"
+                               autoComplete="off"
                         />
                         <button type="submit" disabled={isSubmitting}>
                             Submit

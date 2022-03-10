@@ -1,12 +1,12 @@
 import React from "react";
 import s from './Login.module.css'
 import { Form, Formik} from "formik";
-import {TextField} from "../Form/TextField";
-import { SignUpSchema } from "../common/validation/validation";
+import {TextField} from "../../Form/TextField";
+import { SignUpSchema } from "../../common/validation/validation";
 import {connect} from "react-redux";
-import { loginTC } from "../redux/authReducer";
-import {AppStateType} from "../redux/redux-store";
-import {PATH} from "../App";
+import { loginTC } from "../../redux/authReducer";
+import {AppStateType} from "../../redux/redux-store";
+import {PATH} from "../../App";
 import { Redirect } from "react-router-dom";
 
 
@@ -60,7 +60,16 @@ type LoginPropsType = {
 
     return <div className={s.container}>
         <h1>Authorization</h1>
-        <div>Please log in</div>
+        <div className={s.formLabel}>
+            <p>To log in get registered
+                <a href={'https://social-network.samuraijs.com/'}
+                   target={'_blank'}> here
+                </a>
+            </p>
+            <p>or use common test account credentials:</p>
+            <p><span>Email</span>: free@samuraijs.com</p>
+            <p><span>Password</span>: free</p>
+        </div>
 
         <LoginForm loginTC={loginTC}/>
     </div>
@@ -80,5 +89,3 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
 }
 
 export default connect(mapStateToProps, {loginTC})(Login)
-
-//2809fifka1103astra

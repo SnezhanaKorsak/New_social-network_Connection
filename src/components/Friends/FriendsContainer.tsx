@@ -2,15 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import {Friends} from "./Friends";
 import {AppStateType} from "../../redux/redux-store";
-import {
-    follow,
-    followTC,
-    FriendType,
-    initialStateType,
-    setFriends,
-    toggleIsFollowingProgress,
-    unfollow, unfollowTC
-} from "../../redux/friendsReducer";
+import {followTC, initialStateType, unfollowTC} from "../../redux/friendsReducer";
 
 
 type PropsType = mapStatePropsType & mapDispatchPropsType

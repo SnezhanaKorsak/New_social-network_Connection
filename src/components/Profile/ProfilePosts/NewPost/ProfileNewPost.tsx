@@ -8,7 +8,7 @@ type ProfileNewPostType = {
 }
 
 
-export function ProfileNewPost(props: ProfileNewPostType) {
+export const ProfileNewPost = React.memo((props: ProfileNewPostType) => {
 
 
     const addPost = () => {
@@ -34,5 +34,5 @@ export function ProfileNewPost(props: ProfileNewPostType) {
         <hr/>
         <button onClick={addPost}>Add</button>
     </div>
-}
+})
 
