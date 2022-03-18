@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/network/static/css/main.5f499fc7.chunk.css",
+    "main.js": "/network/static/js/main.14310b1e.chunk.js",
+    "main.js.map": "/network/static/js/main.14310b1e.chunk.js.map",
+    "runtime-main.js": "/network/static/js/runtime-main.eb4ccf4f.js",
+    "runtime-main.js.map": "/network/static/js/runtime-main.eb4ccf4f.js.map",
+    "static/js/2.d1bccafa.chunk.js": "/network/static/js/2.d1bccafa.chunk.js",
+    "static/js/2.d1bccafa.chunk.js.map": "/network/static/js/2.d1bccafa.chunk.js.map",
+    "static/js/3.6e8aeeea.chunk.js": "/network/static/js/3.6e8aeeea.chunk.js",
+    "static/js/3.6e8aeeea.chunk.js.map": "/network/static/js/3.6e8aeeea.chunk.js.map",
+    "index.html": "/network/index.html",
+    "static/css/main.5f499fc7.chunk.css.map": "/network/static/css/main.5f499fc7.chunk.css.map",
+    "static/js/2.d1bccafa.chunk.js.LICENSE.txt": "/network/static/js/2.d1bccafa.chunk.js.LICENSE.txt",
+    "static/media/ball-triangle.ad4227d2.svg": "/network/static/media/ball-triangle.ad4227d2.svg",
+    "static/media/cover-for-user-block-1.9582ce66.jpg": "/network/static/media/cover-for-user-block-1.9582ce66.jpg",
+    "static/media/myAvatar.7a94ce77.jpg": "/network/static/media/myAvatar.7a94ce77.jpg",
+    "static/media/nouser.6836a043.png": "/network/static/media/nouser.6836a043.png",
+    "static/media/ProfileCover.module.css": "/network/static/media/profileCover.1bc40f50.jpg",
+    "static/media/unnamed.8e7d93ca.jpg": "/network/static/media/unnamed.8e7d93ca.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.eb4ccf4f.js",
+    "static/js/2.d1bccafa.chunk.js",
+    "static/css/main.5f499fc7.chunk.css",
+    "static/js/main.14310b1e.chunk.js"
+  ]
+}
