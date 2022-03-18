@@ -1,6 +1,7 @@
 .cover {
     height: 350px;
-    background-image: url("https://pbs.twimg.com/profile_banners/925380997/1525580354/1500x500");
+    //background-image: url("https://pbs.twimg.com/profile_banners/925380997/1525580354/1500x500");
+    background-image: url("../../../assets/images/profileCover.jpg");
     background-size: cover;
     border-radius: 10px;
     margin-bottom: 40px;
