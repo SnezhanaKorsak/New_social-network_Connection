@@ -36,8 +36,7 @@ export const ProfileInfo: React.FC<PropsType> = ({
                 {profile.lookingForAJob ? "I'm locking for a job"
                     : profile.lookingForAJobDescription ? profile.lookingForAJobDescription
                         : 'no information'}<br/>
-                {/*{profile.lookingForAJobDescription ? profile.lookingForAJobDescription*/}
-                {/*    : 'no information'}<br/>*/}
+
                 <ProfileStatus status={status} updateStatus={updateStatus}/>
             </div>
 

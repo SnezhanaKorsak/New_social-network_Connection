@@ -10,8 +10,8 @@ import Login from "./components/Login/Login";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import NavbarContainer from "./components/NavBar/NavbarContainer";
 import {initializeApp} from "./redux/appReducer";
-import {connect} from "react-redux";
-import {AppStateType} from "./redux/redux-store";
+import {connect, Provider} from "react-redux";
+import {AppStateType, store} from "./redux/redux-store";
 import {Preloader} from "./common/Preloader/Preloader";
 
 
@@ -38,7 +38,7 @@ class App extends React.Component<AppPropsType> {
         if(!this.props.initialized) return <Preloader/>
 
         return (
-            <HashRouter>
+
                 <div className="app-wrapper">
                     <HeaderContainer/>
                     <NavbarContainer/>
@@ -56,7 +56,7 @@ class App extends React.Component<AppPropsType> {
 
                     </div>
                 </div>
-            </HashRouter>
+
         );
     }
 }
@@ -71,4 +71,15 @@ const mapStateToProps = (state: AppStateType): mapStatePropsType => {
     }
 }
 
-export default connect(mapStateToProps, {initializeApp})(App)
+const AppContainer = connect(mapStateToProps, {initializeApp})(App)
+
+const MainApp = () => {
+
+    return <HashRouter>
+    <Provider store={store}>
+        <AppContainer/>
+    </Provider>
+    </HashRouter>
+}
+
+export default MainApp;
