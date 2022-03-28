@@ -1,19 +1,18 @@
-import React from 'react';
-import './App.css';
+import React, {Suspense} from 'react';
 import {HashRouter, Redirect, Route, Switch} from "react-router-dom";
-import {Music} from "./components/Music/Music";
-import {Video} from "./components/Video/Video";
-import MessagesContainer from "./components/Messages/MessagesContainer";
-import FriendsContainer from "./components/Friends/FriendsContainer";
-import ProfileContainer from "./components/Profile/ProfileContainer";
-import Login from "./components/Login/Login";
-import HeaderContainer from "./components/Header/HeaderContainer";
-import NavbarContainer from "./components/NavBar/NavbarContainer";
 import {initializeApp} from "./redux/appReducer";
 import {connect, Provider} from "react-redux";
 import {AppStateType, store} from "./redux/redux-store";
+import MessagesContainer from "./components/Messages/MessagesContainer";
+import ProfileContainer from "./components/Profile/ProfileContainer";
+import HeaderContainer from "./components/Header/HeaderContainer";
+import NavbarContainer from "./components/NavBar/NavbarContainer";
 import {Preloader} from "./common/Preloader/Preloader";
+import './App.css';
 
+const FriendsContainer = React.lazy(() => import("./components/Friends/FriendsContainer"))
+const Video = React.lazy(() => import("./components/Video/Video"))
+const Music = React.lazy(() => import("./components/Music/Music"))
 
 export const PATH = {
     PROFILE: '/profile/',
@@ -35,14 +34,15 @@ class App extends React.Component<AppPropsType> {
     }
 
     render() {
-        if(!this.props.initialized) return <Preloader/>
+        if (!this.props.initialized) return <Preloader/>
 
         return (
 
-                <div className="app-wrapper">
-                    <HeaderContainer/>
-                    <NavbarContainer/>
-                    <div className="app-wrapper-content">
+            <div className="app-wrapper">
+                <HeaderContainer/>
+                <NavbarContainer/>
+                <div className="app-wrapper-content">
+                    <Suspense fallback={<Preloader/>}>
                         <Switch>
                             <Route path='/' exact render={() => <Redirect to={PATH.PROFILE}/>}/>
 
@@ -51,11 +51,10 @@ class App extends React.Component<AppPropsType> {
                             <Route path={PATH.FRIENDS} render={() => <FriendsContainer/>}/>
                             <Route path={PATH.MUSIC} render={() => <Music/>}/>
                             <Route path={PATH.VIDEO} render={() => <Video/>}/>
-                            <Route path={PATH.LOGIN} render={() => <Login/>}/>
                         </Switch>
-
-                    </div>
+                    </Suspense>
                 </div>
+            </div>
 
         );
     }
@@ -76,9 +75,9 @@ const AppContainer = connect(mapStateToProps, {initializeApp})(App)
 const MainApp = () => {
 
     return <HashRouter>
-    <Provider store={store}>
-        <AppContainer/>
-    </Provider>
+        <Provider store={store}>
+            <AppContainer/>
+        </Provider>
     </HashRouter>
 }
 

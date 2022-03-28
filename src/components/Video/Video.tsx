@@ -1,8 +1,10 @@
 import React from 'react';
 
-export function Video() {
+function Video() {
  return <div>
     Video
  </div>
 
 }
+
+export default Video;
