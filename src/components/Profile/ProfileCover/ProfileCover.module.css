@@ -1,17 +1,58 @@
 .cover {
+    position: relative;
     height: 350px;
-    //background-image: url("https://pbs.twimg.com/profile_banners/925380997/1525580354/1500x500");
     background-image: url("../../../assets/images/profileCover.jpg");
     background-size: cover;
     border-radius: 10px;
     margin-bottom: 40px;
 }
-.avatar img{
+
+.avatar {
+    position: relative;
+    top: 225px;
+    left: 30px;
+}
+
+.avatar img {
     width: 150px;
     height: 150px;
     border-radius: 80px;
     border: white solid 4px;
-    position: relative;
-    top: 225px;
-    left: 30px;
+}
+
+.overlay {
+    visibility: hidden;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 150px;
+    height: 150px;
+    border-radius: 80px;
+    color: white;
+    background: rgba(64, 62, 62, 0.84);
+}
+
+.avatar:hover .overlay {
+    visibility: visible;
+}
+
+.inputFile {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+}
+
+.inputFileButton {
+    width: 100%;
+    color: #fff;
+    font-size: 1.125rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.inputFileButton:hover {
+    color: #0cb8ef;
+    cursor: pointer;
 }

@@ -83,6 +83,9 @@ export const profileReducer = (state = initialState, action: UserProfileActionTy
         case "DELETE-POST":
             return {...state, posts: state.posts.filter(post => post.id !== action.id)}
 
+        case "UPDATE-PHOTO":
+           return {...state, profile: state.profile ? {...state.profile, photos : action.photos} : null}
+
         default:
             return state
     }
@@ -93,6 +96,7 @@ export type UserProfileActionType = ReturnType<typeof addPostAC>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setUserStatus>
     | ReturnType<typeof deletePostAC>
+    | ReturnType<typeof updatePhotoAC>
 
 export const addPostAC = (postText: string) => {
     return {
@@ -127,6 +131,9 @@ export const deletePostAC = (id: number) => {
     } as const
 }
 
+export const updatePhotoAC = (photos: PhotosType) => ({type: "UPDATE-PHOTO", photos} as const )
+
+//thunk
 export const getUserProfileTC = (userId: string): ThunkCreatorType => async (dispatch) => {
     let response = await ProfileAPI.getUsersProfile(userId)
 
@@ -144,5 +151,13 @@ export const updateStatusTC = (status: string): ThunkCreatorType => async (dispa
 
     if (response.data.resultCode === 0) {
         dispatch(setUserStatus(status))
+    }
+}
+
+export const savePhotoTC = (file: string): ThunkCreatorType => async (dispatch) => {
+    let response = await ProfileAPI.savePhoto(file)
+
+    if (response.data.resultCode === 0) {
+        dispatch(updatePhotoAC(response.data.data.photos))
     }
 }

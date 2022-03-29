@@ -6,9 +6,10 @@ import {AppStateType, store} from "./redux/redux-store";
 import MessagesContainer from "./components/Messages/MessagesContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
-import NavbarContainer from "./components/NavBar/NavbarContainer";
 import {Preloader} from "./common/Preloader/Preloader";
+import {Navbar} from "./components/NavBar/Navbar";
 import './App.css';
+
 
 const FriendsContainer = React.lazy(() => import("./components/Friends/FriendsContainer"))
 const Video = React.lazy(() => import("./components/Video/Video"))
@@ -40,7 +41,7 @@ class App extends React.Component<AppPropsType> {
 
             <div className="app-wrapper">
                 <HeaderContainer/>
-                <NavbarContainer/>
+                <Navbar/>
                 <div className="app-wrapper-content">
                     <Suspense fallback={<Preloader/>}>
                         <Switch>

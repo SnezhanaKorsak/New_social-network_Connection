@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {followUnfollowActionsType, toggleIsFollowingProgress, UserActionType} from "../redux/friendsReducer";
+import {followUnfollowActionsType, toggleIsFollowingProgress} from "../redux/friendsReducer";
 
 
 export const followUnfollowFlow = async (dispatch: Dispatch, userId: number,

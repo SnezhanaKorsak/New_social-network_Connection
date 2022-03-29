@@ -43,6 +43,15 @@ export const ProfileAPI = {
     },
     updateStatus(status: string) {
         return instance.put<ResponseApiType>(`/profile/status/`, {status})
+    },
+    savePhoto(file: string) {
+        const formData = new FormData();
+        formData.append("image", file)
+        return instance.put<ResponseApiType<{photos: PhotosDataType}>>(`/profile/photo/`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
     }
 }
 
@@ -72,4 +81,9 @@ type ApiResponseType = {
     messages: []
     fieldsErrors: []
     resultCode: number
+}
+
+type PhotosDataType = {
+    small: string;
+    large: string
 }

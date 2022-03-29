@@ -54,17 +54,11 @@ export const Pagination: React.FC<PaginationPropsType> = (
                         </li>
                     );
 
-                    return (
-                        <>
-                            <li key={index}
-                                className={`${s.pageItem} ${currentPage === page && s.selectedPage}`}
-                                onClick={() => handleClick(page)}>
-                                {page}
-                            </li>
-
-                        </>
-                    )
-
+                    return <li key={index}
+                            className={`${s.pageItem} ${currentPage === page && s.selectedPage}`}
+                            onClick={() => handleClick(page)}>
+                            {page}
+                        </li>
                 })}
             </ul>
         </nav>

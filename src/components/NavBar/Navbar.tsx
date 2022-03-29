@@ -3,16 +3,12 @@ import s from "./Navbar.module.css"
 import {NavLink} from "react-router-dom";
 import {PATH} from "../../App";
 
-type NavbarPropsType = {
-    userId: string | null
-}
-
-export function Navbar(props:NavbarPropsType) {
+export function Navbar() {
 
  return <nav className={s.nav}>
 
      <div className={s.item}>
-         <NavLink to={PATH.PROFILE + props.userId} activeClassName={s.active}>Profile</NavLink>
+         <NavLink to={PATH.PROFILE} activeClassName={s.active}>Profile</NavLink>
      </div>
      <div className={s.item}>
          <NavLink to={PATH.MESSAGES} activeClassName={s.active}>Messages</NavLink>

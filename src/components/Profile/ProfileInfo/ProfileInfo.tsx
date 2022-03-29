@@ -13,7 +13,7 @@ type PropsType = {
 export const ProfileInfo: React.FC<PropsType> = ({
                                                      profile,
                                                      status,
-                                                     updateStatus
+                                                     updateStatus,
                                                  }) => {
     if (!profile) return <Preloader/>
 
