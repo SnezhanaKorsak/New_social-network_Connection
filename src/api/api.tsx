@@ -26,8 +26,8 @@ export const authAPI = {
     me() {
         return instance.get<ApiResponseType>('/auth/me').then(response => response.data)
     },
-    logIn(email: string, password: string, rememberMe: boolean = false) {
-        return instance.post<ResponseApiType<{ userId: number }>>('/auth/login', {email, password, rememberMe})
+    logIn(email: string, password: string, rememberMe: boolean = false, captcha: string | null = null ) {
+        return instance.post<ResponseApiType<{ userId: number }>>('/auth/login', {email, password, rememberMe, captcha})
     },
     logout() {
         return instance.delete<ResponseApiType>('/auth/login')
@@ -56,6 +56,13 @@ export const profileAPI = {
     updateProfile(profile: ProfileType) {
         return instance.put<ResponseApiType>(`/profile`, profile)
     }
+}
+
+export const securityAPI = {
+    getCaptcha() {
+        return instance.get<{url: string}>('/security/get-captcha-url')
+    },
+
 }
 
 //types

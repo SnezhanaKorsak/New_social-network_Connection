@@ -15,15 +15,21 @@ type MyFormValues = {
     email: string
     password: string
     isRememberMe: boolean
+    captcha: string
 }
 
-const LoginForm = ({loginTC}: {loginTC: (email: string, password: string, rememberMe: boolean) => void}) => {
-    const initialValues: MyFormValues = {email: '', password: '', isRememberMe: false}
+type LoginFormPropsType = {
+    captchaUrl: string | null
+    loginTC: (email: string, password: string, rememberMe: boolean, captcha: string) => void;
+}
+
+const LoginForm: React.FC<LoginFormPropsType> = ( {loginTC, captchaUrl}) => {
+    const initialValues: MyFormValues = {email: '', password: '', isRememberMe: false, captcha: ""}
 
     const onSubmitHandler = (values: MyFormValues) => {
-        loginTC(values.email, values.password, values.isRememberMe)
+        loginTC(values.email, values.password, values.isRememberMe, values.captcha)
     }
-
+    console.log(captchaUrl)
     return (
 
         <div>
@@ -36,7 +42,15 @@ const LoginForm = ({loginTC}: {loginTC: (email: string, password: string, rememb
                     <Form className={s.form}>
                         <TextField type='text' name='email' placeholder='Email'/>
                         <TextField type='password' name='password' placeholder='Password'/>
+
+                        {captchaUrl &&
+                        <TextField type='text' name='captcha' placeholder='Symbols from image'/>
+                        }
+
                         <TextField type='checkbox' name='isRememberMe' placeholder='Password' label='Remember me'/>
+
+                        {captchaUrl && <img src={captchaUrl} alt="captcha"/>}
+
                         <button className={s.button} type="submit" disabled={isValidating}>
                             Submit
                         </button>
@@ -48,14 +62,14 @@ const LoginForm = ({loginTC}: {loginTC: (email: string, password: string, rememb
 }
 type LoginPropsType = {
     isAuth: boolean
-    userId: string | null
-    loginTC: (email: string, password: string, rememberMe: boolean) => void
+    captchaUrl: string | null
+    loginTC: (email: string, password: string, rememberMe: boolean, captcha: string) => void
 }
 
- const Login: React.FC<LoginPropsType>  = ({isAuth, userId, loginTC}) => {
+ const Login: React.FC<LoginPropsType>  = ({isAuth, loginTC, captchaUrl}) => {
 
      if (isAuth) {
-         return <Redirect to={PATH.PROFILE + userId}/>
+         return <Redirect to={PATH.PROFILE}/>
      }
 
     return <div className={s.container}>
@@ -71,20 +85,22 @@ type LoginPropsType = {
             <p><span>Password</span>: free</p>
         </div>
 
-        <LoginForm loginTC={loginTC}/>
+        <LoginForm loginTC={loginTC} captchaUrl={captchaUrl}/>
     </div>
 }
 
 
 type MapStatePropsType = {
     isAuth: boolean
-    userId: string | null
+    captchaUrl: string | null
+   /* userId: string | null*/
 }
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
         isAuth: state.auth.isAuth,
-        userId: state.auth.userId,
+        captchaUrl: state.auth.captchaUrl
+       /* userId: state.auth.userId,*/
     }
 }
 
