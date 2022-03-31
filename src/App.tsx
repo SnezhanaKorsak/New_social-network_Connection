@@ -8,11 +8,12 @@ import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import {Preloader} from "./common/Preloader/Preloader";
 import {Navbar} from "./components/NavBar/Navbar";
-import './App.css';
 import Login from "./components/Login/Login";
+import Error404 from "./common/error404/Error404";
+import FriendsContainer from "./components/Friends/FriendsContainer";
+import './App.css';
 
 
-const FriendsContainer = React.lazy(() => import("./components/Friends/FriendsContainer"))
 const Video = React.lazy(() => import("./components/Video/Video"))
 const Music = React.lazy(() => import("./components/Music/Music"))
 
@@ -54,6 +55,8 @@ class App extends React.Component<AppPropsType> {
                             <Route path={PATH.MUSIC} render={() => <Music/>}/>
                             <Route path={PATH.VIDEO} render={() => <Video/>}/>
                             <Route path={PATH.LOGIN} render={() => <Login/>}/>
+
+                            <Route render={() => <Error404/>}/>
                         </Switch>
                     </Suspense>
                 </div>
