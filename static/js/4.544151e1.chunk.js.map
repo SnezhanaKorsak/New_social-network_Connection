@@ -1,0 +1,1 @@
+{"version":3,"sources":["components/Video/Video.tsx"],"names":["Video"],"mappings":"8IAAA,uBASeA,UAPf,WACC,OAAO","file":"static/js/4.544151e1.chunk.js","sourcesContent":["import React from 'react';\n\nfunction Video() {\n return <div>\n    Video\n </div>\n\n}\n\nexport default Video;"],"sourceRoot":""}
