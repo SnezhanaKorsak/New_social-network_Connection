@@ -1,5 +1,7 @@
 import {ThunkCreatorType} from "./redux-store";
 import {profileAPI} from "../api/api";
+import {setError} from "./appReducer";
+import {AxiosError} from "axios";
 
 export type PostType = {
     id: number
@@ -98,6 +100,7 @@ export type UserProfileActionType = ReturnType<typeof addPostAC>
     | ReturnType<typeof setUserStatus>
     | ReturnType<typeof deletePostAC>
     | ReturnType<typeof updatePhotoAC>
+    | ReturnType<typeof setError>
 
 export const addPostAC = (postText: string) => {
     return {
@@ -145,23 +148,46 @@ export const getUserStatusTC = (userId: string): ThunkCreatorType => async (disp
     dispatch(setUserStatus(response.data))
 
 }
-export const updateStatusTC = (status: string): ThunkCreatorType => async (dispatch) => {
-    let response = await profileAPI.updateStatus(status)
-    if (response.data.resultCode === 0) {
-        dispatch(setUserStatus(status))
-    }
+export const updateStatusTC = (status: string): ThunkCreatorType => (dispatch) => {
+
+    profileAPI.updateStatus(status)
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(setUserStatus(status))
+            } else {
+                dispatch(setError(response.data.messages[0]))
+            }
+        })
+        .catch((error: AxiosError) => {
+            dispatch(setError(error.message))
+        })
 }
 
-export const savePhotoTC = (file: string): ThunkCreatorType => async (dispatch) => {
-    let response = await profileAPI.savePhoto(file)
-    if (response.data.resultCode === 0) {
-        dispatch(updatePhotoAC(response.data.data.photos))
-    }
+export const savePhotoTC = (file: string): ThunkCreatorType => (dispatch) => {
+    profileAPI.savePhoto(file)
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(updatePhotoAC(response.data.data.photos))
+            }  else {
+                dispatch(setError(response.data.messages[0]))
+            }
+        })
+        .catch((error: AxiosError) => {
+            dispatch(setError(error.message))
+        })
+
 }
 
-export const updateProfileTC = (profile: ProfileType): ThunkCreatorType => async (dispatch) => {
-    let response = await profileAPI.updateProfile(profile)
-    if (response.data.resultCode === 0) {
-        dispatch(getUserProfileTC(profile.userId))
-    }
+export const updateProfileTC = (profile: ProfileType): ThunkCreatorType => (dispatch) => {
+    profileAPI.updateProfile(profile)
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(getUserProfileTC(profile.userId))
+            } else {
+                dispatch(setError(response.data.messages[0]))
+            }
+        })
+        .catch((error: AxiosError) => {
+            dispatch(setError(error.message))
+        })
 }
