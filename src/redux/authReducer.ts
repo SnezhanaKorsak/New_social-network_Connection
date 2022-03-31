@@ -1,5 +1,5 @@
 import {ThunkCreatorType} from "./redux-store";
-import {AuthAPI} from "../api/api";
+import {authAPI} from "../api/api";
 
 type InitialStateType = {
     userId: string | null
@@ -34,7 +34,7 @@ export const setAuthData = (userId: string | null, email: string | null, login: 
 }
 
 export const getAuthDataTC = (): ThunkCreatorType => async (dispatch) => {
-    let data = await AuthAPI.me()
+    let data = await authAPI.me()
 
     if (data.resultCode === 0) {
         let {id, email, login} = data.data
@@ -43,7 +43,7 @@ export const getAuthDataTC = (): ThunkCreatorType => async (dispatch) => {
 }
 
 export const loginTC = (email: string, password: string, rememberMe: boolean): ThunkCreatorType => async (dispatch) => {
-    let response = await AuthAPI.logIn(email, password, rememberMe)
+    let response = await authAPI.logIn(email, password, rememberMe)
 
     if (response.data.resultCode === 0) {
         dispatch(getAuthDataTC())
@@ -51,7 +51,7 @@ export const loginTC = (email: string, password: string, rememberMe: boolean): T
 }
 
 export const logoutTC = (): ThunkCreatorType => async (dispatch) => {
-    let response = await AuthAPI.logout()
+    let response = await authAPI.logout()
 
     if (response.data.resultCode === 0) {
         dispatch(setAuthData(null, null, null, false))

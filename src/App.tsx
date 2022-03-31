@@ -9,6 +9,7 @@ import HeaderContainer from "./components/Header/HeaderContainer";
 import {Preloader} from "./common/Preloader/Preloader";
 import {Navbar} from "./components/NavBar/Navbar";
 import './App.css';
+import Login from "./components/Login/Login";
 
 
 const FriendsContainer = React.lazy(() => import("./components/Friends/FriendsContainer"))
@@ -52,6 +53,7 @@ class App extends React.Component<AppPropsType> {
                             <Route path={PATH.FRIENDS} render={() => <FriendsContainer/>}/>
                             <Route path={PATH.MUSIC} render={() => <Music/>}/>
                             <Route path={PATH.VIDEO} render={() => <Video/>}/>
+                            <Route path={PATH.LOGIN} render={() => <Login/>}/>
                         </Switch>
                     </Suspense>
                 </div>

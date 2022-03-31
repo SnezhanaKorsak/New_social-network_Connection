@@ -2,14 +2,21 @@ import React from "react";
 import {connect} from "react-redux";
 import {Profile} from "./Profile";
 import {AppStateType} from "../../redux/redux-store";
-import {getUserProfileTC, getUserStatusTC, ProfileType, savePhotoTC, updateStatusTC} from "../../redux/profileReducer";
+import {
+    getUserProfileTC,
+    getUserStatusTC,
+    ProfileType,
+    savePhotoTC,
+    updateProfileTC,
+    updateStatusTC
+} from "../../redux/profileReducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {compose} from "redux";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 class ProfileContainer extends React.Component<PropsType> {
 
-    refreshProfile () {
+    refreshProfile() {
         let userId = this.props.match.params.userId
         if (!userId) userId = '20572'
         this.props.getUserProfileTC(userId)
@@ -21,7 +28,7 @@ class ProfileContainer extends React.Component<PropsType> {
     }
 
     componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<{}>, snapshot?: any): void {
-        if(this.props.match.params.userId !== prevProps.match.params.userId) {
+        if (this.props.match.params.userId !== prevProps.match.params.userId) {
             this.refreshProfile()
         }
     }
@@ -32,6 +39,7 @@ class ProfileContainer extends React.Component<PropsType> {
                         isOwner={!this.props.match.params.userId}
                         updateStatus={this.props.updateStatusTC}
                         savePhoto={this.props.savePhotoTC}
+                        updateProfile={this.props.updateProfileTC}
         />
     }
 }
@@ -46,6 +54,7 @@ type mapDispatchPropsType = {
     getUserStatusTC: (userId: string) => void
     updateStatusTC: (status: string) => void
     savePhotoTC: (file: File) => void
+    updateProfileTC: (profile: ProfileType) => void
 }
 type OwnPropsType = mapStatePropsType & mapDispatchPropsType
 
@@ -64,7 +73,8 @@ const mapStateToProps = (state: AppStateType): mapStatePropsType => {
 }
 
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {getUserProfileTC, getUserStatusTC, updateStatusTC, savePhotoTC}),
+    connect(mapStateToProps,
+        {getUserProfileTC, getUserStatusTC, updateStatusTC, savePhotoTC, updateProfileTC}),
     withRouter,
     withAuthRedirect
 )(ProfileContainer)

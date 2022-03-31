@@ -1,33 +1,120 @@
 .info {
+    position: relative;
     background-color: white;
     border-radius: 10px;
     margin-top: 20px;
     padding: 0 10px
 }
-.infoHeader {
+
+.infoHeader ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     margin: 0 0 10px 0;
     padding: 4px 0 0 0;
 }
+
 .infoHeader li {
-    display: inline;
-    margin-right: 130px;
+    display: block;
+    width: 30%;
+    text-align: left;
     padding: 3px;
 }
+
+ li.socialLinks{
+    width: 40%;
+}
+
+.editProfileBtn {
+    position: absolute;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    right: 10px;
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+}
+
+.editProfileBtn button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.editProfileBtn:hover {
+    background-color: #dcf0ff;
+    border-radius: 50%;
+}
+
+.edit:hover:after, .save:hover:after {
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+    z-index: -1;
+    width: 120px;
+    height: 35px;
+    font-weight: 600;
+    background: #dcf0ff;
+    padding: 5px 25px;
+    border-radius: 20px;
+    cursor: auto;
+}
+
+.edit:hover:after {
+    content: "Edit profile";
+}
+
+.save:hover:after {
+    content: "Save changes";
+}
+
 .infoBlock {
     display: flex;
+    justify-content: space-between;
     flex-wrap: wrap;
 }
-.basicItem.order{
+
+.infoItem {
+    display: flex;
+    justify-content: space-between;
+    width: 30%;
+}
+
+.basicItem.order {
+    width: 30%;
     font-family: Poppins, sans-serif;
     font-weight: bold;
-    margin-right: -10px;
     color: #0e2d41;
 }
-.basicItem{
+.infoItem.socialLinks {
+    width: 40%;
+}
+.basicItem.order.socialLinks {
+    width: 40%;
+}
+
+.basicItem {
+    width: 70%;
     font-family: Montserrat, sans-serif;
-    width: 120px;
     color: #3f414d;
     font-size: 14px;
     line-height: 28px;
-    margin: 0 60px 15px 0;
 }
+
+.basicItem input {
+    width: 90%;
+}
+
+.checkbox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+input[type="checkbox"] {
+    width: 20px;
+}
+

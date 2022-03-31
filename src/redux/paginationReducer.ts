@@ -1,5 +1,5 @@
 import {setFriends, toggleIsFetching} from "./friendsReducer"
-import {UserAPI} from "../api/api";
+import {userAPI} from "../api/api";
 import {ThunkCreatorType} from "./redux-store";
 
 
@@ -55,7 +55,7 @@ export const getUserTC = (currentPage: number, pageLimit: number): ThunkCreatorT
     dispatch(toggleIsFetching(true))
     dispatch(setCurrentPage(currentPage))
 
-    let response = await UserAPI.getUsers(currentPage, pageLimit)
+    let response = await userAPI.getUsers(currentPage, pageLimit)
 
     dispatch(toggleIsFetching(false))
     dispatch(setFriends(response.items));

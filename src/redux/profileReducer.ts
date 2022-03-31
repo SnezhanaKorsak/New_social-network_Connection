@@ -1,5 +1,5 @@
 import {ThunkCreatorType} from "./redux-store";
-import {ProfileAPI} from "../api/api";
+import {profileAPI} from "../api/api";
 
 export type PostType = {
     id: number
@@ -21,11 +21,11 @@ type PhotosType = {
     large: string
 }
 export type ProfileType = {
+    fullName: string
     aboutMe: string
-    contacts: ContactsType
     lookingForAJob: boolean
     lookingForAJobDescription: string
-    fullName: string
+    contacts: ContactsType
     userId: number
     photos: PhotosType
 }
@@ -84,7 +84,8 @@ export const profileReducer = (state = initialState, action: UserProfileActionTy
             return {...state, posts: state.posts.filter(post => post.id !== action.id)}
 
         case "UPDATE-PHOTO":
-           return {...state, profile: state.profile ? {...state.profile, photos : action.photos} : null}
+            return {...state, profile: state.profile ? {...state.profile, photos: action.photos} : null}
+
 
         default:
             return state
@@ -131,33 +132,36 @@ export const deletePostAC = (id: number) => {
     } as const
 }
 
-export const updatePhotoAC = (photos: PhotosType) => ({type: "UPDATE-PHOTO", photos} as const )
+export const updatePhotoAC = (photos: PhotosType) => ({type: "UPDATE-PHOTO", photos} as const)
 
 //thunk
-export const getUserProfileTC = (userId: string): ThunkCreatorType => async (dispatch) => {
-    let response = await ProfileAPI.getUsersProfile(userId)
-
+export const getUserProfileTC = (userId: number): ThunkCreatorType => async (dispatch) => {
+    let response = await profileAPI.getUsersProfile(userId)
     dispatch(setUserProfile(response.data))
 }
 
 export const getUserStatusTC = (userId: string): ThunkCreatorType => async (dispatch) => {
-    let response = await ProfileAPI.getUserStatus(userId)
-
+    let response = await profileAPI.getUserStatus(userId)
     dispatch(setUserStatus(response.data))
 
 }
 export const updateStatusTC = (status: string): ThunkCreatorType => async (dispatch) => {
-    let response = await ProfileAPI.updateStatus(status)
-
+    let response = await profileAPI.updateStatus(status)
     if (response.data.resultCode === 0) {
         dispatch(setUserStatus(status))
     }
 }
 
 export const savePhotoTC = (file: string): ThunkCreatorType => async (dispatch) => {
-    let response = await ProfileAPI.savePhoto(file)
-
+    let response = await profileAPI.savePhoto(file)
     if (response.data.resultCode === 0) {
         dispatch(updatePhotoAC(response.data.data.photos))
+    }
+}
+
+export const updateProfileTC = (profile: ProfileType): ThunkCreatorType => async (dispatch) => {
+    let response = await profileAPI.updateProfile(profile)
+    if (response.data.resultCode === 0) {
+        dispatch(getUserProfileTC(profile.userId))
     }
 }

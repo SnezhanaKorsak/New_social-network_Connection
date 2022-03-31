@@ -11,7 +11,7 @@ const instance = axios.create({
     }
 })
 
-export const UserAPI = {
+export const userAPI = {
     getUsers(currentPage = 1, pageLimit = 4) {
         return instance.get<GetUsersResponse>(`/users?page=${currentPage}&count=${pageLimit}`).then(response => response.data)
     },
@@ -22,7 +22,7 @@ export const UserAPI = {
         return instance.delete<ResponseApiType>(`/follow/${userId}`).then(response => response.data)
     },
 }
-export const AuthAPI = {
+export const authAPI = {
     me() {
         return instance.get<ApiResponseType>('/auth/me').then(response => response.data)
     },
@@ -34,8 +34,8 @@ export const AuthAPI = {
     }
 }
 
-export const ProfileAPI = {
-    getUsersProfile(userId: string) {
+export const profileAPI = {
+    getUsersProfile(userId: number) {
         return instance.get<ProfileType>(`/profile/` + userId)
     },
     getUserStatus(userId: string) {
@@ -52,6 +52,9 @@ export const ProfileAPI = {
                 'Content-Type': 'multipart/form-data'
             }
         })
+    },
+    updateProfile(profile: ProfileType) {
+        return instance.put<ResponseApiType>(`/profile`, profile)
     }
 }
 

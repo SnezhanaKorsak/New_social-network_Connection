@@ -1,5 +1,5 @@
 import {ThunkCreatorType} from "./redux-store";
-import {UserAPI} from "../api/api";
+import {userAPI} from "../api/api";
 import {followUnfollowFlow} from "../utils/helper-utils";
 
 type PhotosType = {
@@ -99,13 +99,13 @@ export const toggleIsFollowingProgress = (isFetching: boolean, userId: number) =
 
 
 export const followTC = (userId: number): ThunkCreatorType => async (dispatch) => {
-    const apiMethod = UserAPI.followUser.bind(UserAPI)
+    const apiMethod = userAPI.followUser.bind(userAPI)
 
     await followUnfollowFlow(dispatch, userId, apiMethod, follow)
 }
 
 export const unfollowTC = (userId: number): ThunkCreatorType => async (dispatch) => {
-    const apiMethod = UserAPI.unfollowUser.bind(UserAPI)
+    const apiMethod = userAPI.unfollowUser.bind(userAPI)
 
     await followUnfollowFlow(dispatch, userId, apiMethod, unfollow)
 }
