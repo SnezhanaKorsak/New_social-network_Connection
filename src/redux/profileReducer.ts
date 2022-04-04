@@ -1,7 +1,7 @@
-import {ThunkCreatorType} from "./redux-store";
-import {profileAPI} from "../api/api";
-import {setError} from "./appReducer";
+import {InferActionsType, ThunkCreatorType} from "./redux-store";
+import {appActions} from "./appReducer";
 import {AxiosError} from "axios";
+import {profileAPI} from "../api/profile-api";
 
 export type PostType = {
     id: number
@@ -38,11 +38,6 @@ export type ProfilePageType = {
     status: string
 }
 
-const ADD_POST = "ADD-POST";
-const UPDATE_NEW_POST = "UPDATE-NEW-POST";
-const SET_USER_PROFILE = "SET-USER-PROFILE";
-const SET_USER_STATUS = "SET-USER-STATUS";
-
 const initialState: ProfilePageType = {
     posts: [
         {
@@ -64,7 +59,7 @@ const initialState: ProfilePageType = {
 
 export const profileReducer = (state = initialState, action: UserProfileActionType): ProfilePageType => {
     switch (action.type) {
-        case ADD_POST:
+        case "ADD-POST":
             const newPost: PostType = {
                 id: new Date().getTime(),
                 message: action.postText,
@@ -73,7 +68,7 @@ export const profileReducer = (state = initialState, action: UserProfileActionTy
 
             return {...state, posts: [...state.posts, newPost], newPostText: ''};
 
-        case UPDATE_NEW_POST:
+        case "UPDATE-NEW-POST":
             return {...state, newPostText: action.newText};
 
         case "SET-USER-PROFILE":
@@ -94,58 +89,28 @@ export const profileReducer = (state = initialState, action: UserProfileActionTy
     }
 }
 
-export type UserProfileActionType = ReturnType<typeof addPostAC>
-    | ReturnType<typeof onPostChangeAC>
-    | ReturnType<typeof setUserProfile>
-    | ReturnType<typeof setUserStatus>
-    | ReturnType<typeof deletePostAC>
-    | ReturnType<typeof updatePhotoAC>
-    | ReturnType<typeof setError>
+export type UserProfileActionType = InferActionsType<typeof profileActions>
 
-export const addPostAC = (postText: string) => {
-    return {
-        type: ADD_POST,
-        postText
-    } as const
+//actions
+export const profileActions = {
+    addPostAC: (postText: string) => ({type: "ADD-POST", postText} as const),
+    onPostChangeAC: (newText: string) => ({type: "UPDATE-NEW-POST", newText} as const),
+    setUserProfile: (profile: ProfileType | null) => ({type: "SET-USER-PROFILE", profile} as const),
+    setUserStatus: (status: string) => ({type: "SET-USER-STATUS", status} as const),
+    deletePostAC : (id: number) => ({type: "DELETE-POST", id} as const),
+    updatePhotoAC : (photos: PhotosType) => ({type: "UPDATE-PHOTO", photos} as const)
 }
 
-export const onPostChangeAC = (newText: string) => {
-    return {
-        type: UPDATE_NEW_POST,
-        newText
-    } as const
-}
-export const setUserProfile = (profile: ProfileType | null) => {
-    return {
-        type: SET_USER_PROFILE,
-        profile
-    } as const
-}
-export const setUserStatus = (status: string) => {
-    return {
-        type: SET_USER_STATUS,
-        status
-    } as const
-}
-
-export const deletePostAC = (id: number) => {
-    return {
-        type: "DELETE-POST",
-        id
-    } as const
-}
-
-export const updatePhotoAC = (photos: PhotosType) => ({type: "UPDATE-PHOTO", photos} as const)
 
 //thunk
 export const getUserProfileTC = (userId: number): ThunkCreatorType => async (dispatch) => {
     let response = await profileAPI.getUsersProfile(userId)
-    dispatch(setUserProfile(response.data))
+    dispatch(profileActions.setUserProfile(response.data))
 }
 
 export const getUserStatusTC = (userId: string): ThunkCreatorType => async (dispatch) => {
     let response = await profileAPI.getUserStatus(userId)
-    dispatch(setUserStatus(response.data))
+    dispatch(profileActions.setUserStatus(response.data))
 
 }
 export const updateStatusTC = (status: string): ThunkCreatorType => (dispatch) => {
@@ -153,29 +118,28 @@ export const updateStatusTC = (status: string): ThunkCreatorType => (dispatch) =
     profileAPI.updateStatus(status)
         .then(response => {
             if (response.data.resultCode === 0) {
-                dispatch(setUserStatus(status))
+                dispatch(profileActions.setUserStatus(status))
             } else {
-                dispatch(setError(response.data.messages[0]))
+                dispatch(appActions.setError(response.data.messages[0]))
             }
         })
         .catch((error: AxiosError) => {
-            dispatch(setError(error.message))
+            dispatch(appActions.setError(error.message))
         })
 }
 
 export const savePhotoTC = (file: string): ThunkCreatorType => (dispatch) => {
     profileAPI.savePhoto(file)
         .then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(updatePhotoAC(response.data.data.photos))
+            if (response.resultCode === 0) {
+                dispatch(profileActions.updatePhotoAC(response.data.photos))
             }  else {
-                dispatch(setError(response.data.messages[0]))
+                dispatch(appActions.setError(response.messages[0]))
             }
         })
         .catch((error: AxiosError) => {
-            dispatch(setError(error.message))
+            dispatch(appActions.setError(error.message))
         })
-
 }
 
 export const updateProfileTC = (profile: ProfileType): ThunkCreatorType => (dispatch) => {
@@ -184,10 +148,10 @@ export const updateProfileTC = (profile: ProfileType): ThunkCreatorType => (disp
             if (response.data.resultCode === 0) {
                 dispatch(getUserProfileTC(profile.userId))
             } else {
-                dispatch(setError(response.data.messages[0]))
+                dispatch(appActions.setError(response.data.messages[0]))
             }
         })
         .catch((error: AxiosError) => {
-            dispatch(setError(error.message))
+            dispatch(appActions.setError(error.message))
         })
 }

@@ -1,5 +1,4 @@
-import {ThunkAction} from "redux-thunk";
-import {AppStateType} from "./redux-store";
+import {InferActionsType, ThunkCreatorType} from "./redux-store";
 import {getAuthDataTC} from "./authReducer";
 
 export type initialStateType = {
@@ -9,10 +8,10 @@ export type initialStateType = {
 
 const initialState: initialStateType = {
     initialized: false,
-    rootError:  null,
+    rootError: null,
 }
 
-export const appReducer = (state = initialState, action: ActionType): initialStateType => {
+export const appReducer = (state = initialState, action: AppActionType): initialStateType => {
     switch (action.type) {
         case "SET-INITIALISED":
             return {...state, initialized: true}
@@ -26,27 +25,26 @@ export const appReducer = (state = initialState, action: ActionType): initialSta
 
 }
 
-type ActionType = ReturnType<typeof setInitialised> | ReturnType<typeof setError>
+export type AppActionType = InferActionsType<typeof appActions>
 
-
-export const setInitialised = () => ({type: "SET-INITIALISED",} as const)
-
-export const setError = (error: string | null) => ({type: "SET-ERROR", error} as const)
-
-//thunk
-export const initializeApp = (): ThunkAction<void, AppStateType, unknown, ActionType> => (dispatch) => {
-    dispatch(getAuthDataTC())
-        .then(() => {
-            dispatch(setInitialised())
-        })
+export const appActions = {
+    setInitialised : () => ({type: "SET-INITIALISED",} as const),
+    setError : (error: string | null) => ({type: "SET-ERROR", error} as const)
 }
 
-export const setRootError = (error: string | null): ThunkAction<void, AppStateType, unknown, ActionType> => (dispatch) => {
-    dispatch(setError(error))
 
-    if(error) {
+//thunk
+export const initializeApp = (): ThunkCreatorType<Promise<void>> => async (dispatch) => {
+    await dispatch(getAuthDataTC())
+    dispatch(appActions.setInitialised())
+}
+
+export const setRootError = (error: string | null): ThunkCreatorType => (dispatch) => {
+    dispatch(appActions.setError(error))
+
+    if (error) {
         setTimeout(() => {
-            dispatch(setError(null));
+            dispatch(appActions.setError(null));
         }, 3000);
     }
 }

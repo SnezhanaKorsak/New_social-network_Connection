@@ -1,6 +1,6 @@
-import {ThunkCreatorType} from "./redux-store";
-import {userAPI} from "../api/api";
-import {followUnfollowFlow} from "../utils/helper-utils";
+import {InferActionsType, ThunkCreatorType} from "./redux-store";
+import {Dispatch} from "redux";
+import {userAPI} from "../api/user-api";
 
 type PhotosType = {
     small: string
@@ -26,7 +26,7 @@ const initialState: initialStateType = {
 }
 
 
-export const friendsReducer = (state = initialState, action: UserActionType): initialStateType => {
+export const friendsReducer = (state = initialState, action: UserActionsType): initialStateType => {
     switch (action.type) {
         case "FOLLOW":
             return {
@@ -57,55 +57,43 @@ export const friendsReducer = (state = initialState, action: UserActionType): in
     }
 }
 
-export type UserActionType = followUnfollowActionsType
-    | ReturnType<typeof setFriends>
-    | ReturnType<typeof toggleIsFetching>
-    | ReturnType<typeof toggleIsFollowingProgress>
+export type UserActionsType = InferActionsType<typeof friendsActions>
 
-export  type followUnfollowActionsType = ReturnType<typeof follow> | ReturnType<typeof unfollow>
-
-export const follow = (friendId: number) => {
-    return {
-        type: 'FOLLOW',
-        friendId
-    } as const
-}
-
-export const unfollow = (friendId: number) => {
-    return {
-        type: 'UNFOLLOW',
-        friendId
-    } as const
-}
-
-export const setFriends = (friends: Array<FriendType>) => {
-    return {
-        type: 'SET-FRIENDS',
-        friends
-    } as const
-}
-export const toggleIsFetching = (isFetching: boolean) => {
-    return {
-        type: "TOGGLE-IS-FETCHING",
-        isFetching
-    } as const
-}
-export const toggleIsFollowingProgress = (isFetching: boolean, userId: number) => {
-    return {
+//actions
+export const friendsActions = {
+    follow : (friendId: number) => ({type: 'FOLLOW', friendId} as const),
+    unfollow : (friendId: number) => ({type: 'UNFOLLOW', friendId} as const),
+    setFriends : (friends: Array<FriendType>) => ({type: 'SET-FRIENDS', friends} as const),
+    toggleIsFetching : (isFetching: boolean) => ({type: "TOGGLE-IS-FETCHING", isFetching} as const),
+    toggleIsFollowingProgress : (isFetching: boolean, userId: number) => ({
         type: "TOGGLE-IS-FOLLOWING-PROGRESS",
-        isFetching, userId
-    } as const
+        isFetching, userId} as const),
+}
+
+//thunk
+const followUnfollowFlow = async (dispatch: Dispatch, userId: number,
+                                  apiMethod: (userId: number) => any,
+                                  action: (friendId: number) => UserActionsType) => {
+    dispatch(friendsActions.toggleIsFollowingProgress(true, userId))
+
+    let response = await apiMethod(userId)
+
+    if (response.resultCode === 0) {
+        dispatch(action(userId))
+    }
+    dispatch(friendsActions.toggleIsFollowingProgress(false, userId))
 }
 
 
 export const followTC = (userId: number): ThunkCreatorType => async (dispatch) => {
     const apiMethod = userAPI.followUser.bind(userAPI)
 
-    await followUnfollowFlow(dispatch, userId, apiMethod, follow)
+    await followUnfollowFlow(dispatch, userId, apiMethod, friendsActions.follow)
 }
 
 export const unfollowTC = (userId: number): ThunkCreatorType => async (dispatch) => {
     const apiMethod = userAPI.unfollowUser.bind(userAPI)
 
-    await followUnfollowFlow(dispatch, userId, apiMethod, unfollow)
+    await followUnfollowFlow(dispatch, userId, apiMethod, friendsActions.unfollow)
 }
+

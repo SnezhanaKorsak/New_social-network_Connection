@@ -1,5 +1,5 @@
 import React from 'react';
-import {addMessage, MessagePageType, onMessageChange} from '../../redux/messageReducer';
+import {messageActions, MessagePageType} from '../../redux/messageReducer';
 import {Messages} from "./Messages";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
@@ -26,6 +26,7 @@ const mapStateToProps = (state: AppStateType): mapStatePropsType => {
 
 
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {addMessage, onMessageChange}),
+    connect(mapStateToProps,
+        {addMessage: messageActions.addMessage, onMessageChange: messageActions.onMessageChange}),
     withAuthRedirect
 )(Messages)

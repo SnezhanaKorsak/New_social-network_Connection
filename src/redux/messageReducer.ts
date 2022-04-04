@@ -1,3 +1,5 @@
+import {InferActionsType} from "./redux-store";
+
 export type UsersType = {
     id: number
     name: string
@@ -12,9 +14,6 @@ export type MessagePageType = {
     newMessageText: string
 }
 
-
-const ADD_MESSAGE = "ADD-MESSAGE";
-const UPDATE_NEW_MESSAGE = "UPDATE-NEW-MESSAGE";
 
 const initialState: MessagePageType = {
     users: [
@@ -34,14 +33,14 @@ const initialState: MessagePageType = {
 
 export const messageReducer = (state = initialState, action: ActionType): MessagePageType => {
     switch (action.type) {
-        case ADD_MESSAGE:
+        case "ADD-MESSAGE":
             const newMessage: DialogsType = {
                 id: new Date().getTime(),
                 message: action.messageText,
             }
             return {...state, dialogs: [...state.dialogs, newMessage], newMessageText: ''};
 
-        case UPDATE_NEW_MESSAGE:
+        case "UPDATE-NEW-MESSAGE":
             return {...state, newMessageText: action.newText};
 
         default:
@@ -50,18 +49,11 @@ export const messageReducer = (state = initialState, action: ActionType): Messag
 
 }
 
-type ActionType = ReturnType<typeof addMessage> | ReturnType<typeof onMessageChange>
+type ActionType = InferActionsType<typeof messageActions>
 
-export const addMessage = (messageText: string) => {
+//actions
 
-    return {
-        type: ADD_MESSAGE,
-        messageText: messageText
-    } as const
-}
-export const onMessageChange = (newText: string) => {
-    return {
-        type: UPDATE_NEW_MESSAGE,
-        newText: newText
-    } as const
+export const messageActions = {
+    addMessage : (messageText: string) => ({type: "ADD-MESSAGE", messageText} as const),
+    onMessageChange : (newText: string) => ({type: "UPDATE-NEW-MESSAGE", newText} as const),
 }

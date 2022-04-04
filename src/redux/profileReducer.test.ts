@@ -1,4 +1,4 @@
-import {addPostAC, deletePostAC, profileReducer} from "./profileReducer";
+import {profileActions, profileReducer} from "./profileReducer";
 
 const startState = {
     posts: [
@@ -19,14 +19,14 @@ const startState = {
 }
 
 test('new post should be added', () => {
-   const action = addPostAC("new text")
+   const action = profileActions.addPostAC("new text")
     let newState = profileReducer(startState, action)
 
     expect(newState.posts.length).toBe(3)
 });
 
 test('post should be deleted', () => {
-    const action = deletePostAC(1)
+    const action = profileActions.deletePostAC(1)
     let newState = profileReducer(startState, action)
 
     expect(newState.posts.length).toBe(1)
